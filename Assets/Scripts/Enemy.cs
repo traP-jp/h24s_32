@@ -6,6 +6,7 @@ public class Enemy : MonoBehaviour
 {
     public string IconName;
     GameObject oisuManager;
+    public int damage = 1;
     void Start()
     {
         oisuManager = GameObject.Find("OisuManager");
