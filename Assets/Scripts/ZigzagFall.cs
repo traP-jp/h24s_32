@@ -21,7 +21,6 @@ public class ZigzagFall : MonoBehaviour
     { 
         // オブジェクトが横にゆらゆら揺れるアニメーション
         float newXPosition = initialXPosition + Mathf.PingPong(Time.time * swingSpeed, swingRange);
-        transform.position = new Vector3(newXPosition, transform.position.y, transform.position.z);
-        _rb.velocity = new Vector2(_rb.velocity.x, speed);
+        _rb.MovePosition(new Vector2(newXPosition, transform.position.y + speed*Time.deltaTime));
     }
 }
