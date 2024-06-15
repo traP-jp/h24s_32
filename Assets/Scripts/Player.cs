@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using Unity.Burst.Intrinsics;
 using Unity.Mathematics;
 using UnityEngine;
@@ -15,6 +16,11 @@ public class Player : MonoBehaviour
     public float leftPosLimit = -1.5f;//¶•ûŒüˆÚ“®‚ÌãŒÀ
     public float rightPosLimit = 4.6f;//‰E•ûŒüˆÚ“®‚ÌãŒÀ
     public float moveFreezeTimeLimit = 0.3f;
+    public float jumpPower = 15;
+    public float gravityForce_Rise = 30;
+    public float gravityForce_Fall = 10;
+    [SerializeField] float groundPos = -3.76f;
+    float currentJumpSpeed = -10000;
     float moveFreezeTime = -100; //‚±‚ê‚ª³‚¾‚Æ“®‚¯‚È‚¢
     [SerializeField] Vector3 ShotSpawnPos = new Vector3(0, 0.5f, 0);
     [SerializeField] GameObject normalShot;
@@ -59,6 +65,27 @@ public class Player : MonoBehaviour
         else if (coolTime > 0)
         {
             coolTime -= Time.deltaTime;
+        }
+        if (UpPushed && transform.position.y < -3.7f)
+        {
+            currentJumpSpeed = jumpPower;
+        }
+        if (currentJumpSpeed > -5000)
+        {
+            if (currentJumpSpeed > 0)
+            {
+                currentJumpSpeed -= gravityForce_Rise * Time.deltaTime;
+            }
+            else
+            {
+                currentJumpSpeed -= gravityForce_Fall * Time.deltaTime;
+            }
+            rb.position += new Vector2(0, currentJumpSpeed * Time.deltaTime);
+            if (rb.position.y < groundPos)
+            {
+                rb.position = new Vector2(rb.position.x, groundPos);
+                currentJumpSpeed = -10000;
+            }
         }
         PushReset();
     }
