@@ -16,10 +16,16 @@ public class Shot_Homing : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // 通常時は直進
+        _rb.velocity = transform.up * speed;
         // Searchで見つけた敵に向かって移動する
-        Vector2 target = SearchEnemy().GetComponent<Transform>().position;
-        Vector2 direction = target - (Vector2)transform.position;
-        _rb.velocity = direction.normalized * speed;
+        GameObject enemy = SearchEnemy();
+        if (enemy != null)
+        {
+            Vector2 target = enemy.GetComponent<Transform>().position;
+            Vector2 direction = target - (Vector2)transform.position;
+            _rb.velocity = direction.normalized * speed;
+        }
     }
 
     // 一番近くの敵を探す
