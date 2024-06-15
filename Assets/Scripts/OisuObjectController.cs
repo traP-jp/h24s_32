@@ -14,6 +14,10 @@ public class OisuObjectController : MonoBehaviour
     {
         transform.GetChild(0).GetComponent<Text>().DOFade(1, Interval);
         transform.GetChild(1).GetComponent<Text>().DOFade(1, Interval);
+        transform.GetChild(2).GetComponent<Image>().DOFade(1, Interval);
+        transform.GetChild(3).GetComponent<Image>().DOFade(1, Interval);
+        transform.GetChild(4).GetComponent<Image>().DOFade(1, Interval);
+        transform.GetChild(5).GetComponent<Image>().DOFade(1, Interval);
     }
 
     // Update is called once per frame
