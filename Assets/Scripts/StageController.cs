@@ -10,7 +10,7 @@ public class StageController : MonoBehaviour
 {
     public bool startGame = false;
     int stageNumber = 1;
-    bool isPlayingStage = false;
+    public bool isPlayingStage = false;
     int currentOisuCount = 0;
     int totalOisuCount = 0;
     public float limitTime = 30;
