@@ -8,7 +8,7 @@ using UnityEngine;
 public class Enemy_bn_path : MonoBehaviour
 {
     private Rigidbody2D rb;
-    public GameObject player;
+    private GameObject player;
     private GameObject pathObject;
     public GameObject path;
     private float time;
@@ -27,12 +27,12 @@ public class Enemy_bn_path : MonoBehaviour
     public float enemySpeed;
     public float firstPathSize;
     public float enemyAirResistance;
-    public float maxDistance;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
+        player = GameObject.FindWithTag("Player");
         rb.gravityScale = 0;
         rb.drag = enemyAirResistance;
         time = 0f;
