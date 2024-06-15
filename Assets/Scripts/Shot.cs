@@ -17,4 +17,11 @@ public class Shot : MonoBehaviour
     void Update()
     {
     }
+
+    // 画面外に出たら削除する
+    void OnBecameInvisible()
+    {
+        Debug.Log("OnBecameInvisible");
+        Destroy(gameObject);
+    }
 }
