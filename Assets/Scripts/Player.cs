@@ -30,6 +30,7 @@ public class Player : MonoBehaviour
     [SerializeField] Vector3 ShotSpawnPos = new Vector3(0, 0.5f, 0);
     [SerializeField] GameObject normalShot;
     Rigidbody2D rb;
+    SpriteRenderer playerRenderer;
     bool RightPushed = false;
     bool LeftPushed = false;
     bool UpPushed = false;
@@ -40,6 +41,7 @@ public class Player : MonoBehaviour
         currentHP = maxHP;
         currentHP_Damage_Tween = maxHP;
         rb = GetComponent<Rigidbody2D>();
+        playerRenderer = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -51,10 +53,12 @@ public class Player : MonoBehaviour
             if (LeftPushed && transform.position.x > leftPosLimit)
             {
                 rb.position += new Vector2(-moveSpeed * Time.deltaTime, 0);
+                playerRenderer.flipX = false;
             }
             else if (RightPushed && transform.position.x < rightPosLimit)
             {
                 rb.position += new Vector2(moveSpeed * Time.deltaTime, 0);
+                playerRenderer.flipX = true;
             }
         }
         else
@@ -73,7 +77,7 @@ public class Player : MonoBehaviour
         {
             coolTime -= Time.deltaTime;
         }
-        if (UpPushed && transform.position.y < -3.7f)
+        if (UpPushed && transform.position.y < groundPos + 0.1f)
         {
             currentJumpSpeed = jumpPower;
         }
