@@ -7,7 +7,7 @@ public class Shot_Homing : MonoBehaviour
     // ホーミング強度
     public float homingPower = 0.0f;
     // ホーミング強度の上がり幅
-    public float homingPowerIncrease = 0.0005f;
+    public float homingPowerIncrease = 0.00005f;
     private float speed;
     private Rigidbody2D _rb;
     // Start is called before the first frame update
@@ -27,12 +27,13 @@ public class Shot_Homing : MonoBehaviour
         if (enemy != null)
         {
             Vector2 target = enemy.GetComponent<Transform>().position;
-            Vector2 direction = target - (Vector2)transform.position;
+            Vector2 idealDirection = target - (Vector2)transform.position;
+            Vector2 currentDirection = _rb.velocity;
+            Vector2 direction = currentDirection.normalized + idealDirection.normalized * homingPower;
             // ホーミング強度に応じてx軸方向の速度を変更する
-            direction.x *= homingPower;
             _rb.velocity = direction.normalized * speed;
             // ホーミング角度に応じて回転させる
-            transform.rotation = Quaternion.LookRotation(Vector3.forward, direction);
+            transform.rotation = Quaternion.LookRotation(Vector3.forward, direction.normalized);
         }
         homingPower += homingPowerIncrease;
     }
