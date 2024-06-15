@@ -29,6 +29,7 @@ public class Player : MonoBehaviour
     float damageDecreaseTime = 0.5f; //TweenÇ…ìÀÇ¡çûÇﬁóp
     [SerializeField] Vector3 ShotSpawnPos = new Vector3(0, 0.5f, 0);
     [SerializeField] GameObject normalShot;
+    [SerializeField] Animator playerAnimator;
     Rigidbody2D rb;
     SpriteRenderer playerRenderer;
     bool RightPushed = false;
@@ -54,11 +55,19 @@ public class Player : MonoBehaviour
             {
                 rb.position += new Vector2(-moveSpeed * Time.deltaTime, 0);
                 playerRenderer.flipX = false;
+                if (!playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Run"))
+                {
+                    playerAnimator.SetTrigger("RunTrigger");
+                }
             }
             else if (RightPushed && transform.position.x < rightPosLimit)
             {
                 rb.position += new Vector2(moveSpeed * Time.deltaTime, 0);
                 playerRenderer.flipX = true;
+                if (!playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Run"))
+                {
+                    playerAnimator.SetTrigger("RunTrigger");
+                }
             }
         }
         else
@@ -67,6 +76,7 @@ public class Player : MonoBehaviour
         }
         if (coolTime < 0 && SpacePushed)
         {
+            playerAnimator.SetTrigger("OisuTrigger");
             Vector3 shotBasePos = transform.position;
             GameObject go = Instantiate(normalShot);
             go.transform.position = shotBasePos += ShotSpawnPos;
