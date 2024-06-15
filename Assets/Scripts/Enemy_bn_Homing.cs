@@ -41,6 +41,10 @@ public class Enemy_bn_Homing : MonoBehaviour
                 rb.AddForce(difVectorE * enemySpeed, ForceMode2D.Impulse);
                 time = 0f;
             }
+            else
+            {
+                Destroy(gameObject);
+            }
 
         }
     }
