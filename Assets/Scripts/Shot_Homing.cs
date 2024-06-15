@@ -31,6 +31,8 @@ public class Shot_Homing : MonoBehaviour
             // ホーミング強度に応じてx軸方向の速度を変更する
             direction.x *= homingPower;
             _rb.velocity = direction.normalized * speed;
+            // ホーミング角度に応じて回転させる
+            transform.rotation = Quaternion.LookRotation(Vector3.forward, direction);
         }
         homingPower += homingPowerIncrease;
     }
