@@ -5,16 +5,17 @@ using UnityEngine;
 public class Enemy_bn_Homing : MonoBehaviour
 {
     private Rigidbody2D rb;
-    public GameObject player;
+    private GameObject player;
     private float time;
-    public float freezTime;
+    public float freezeTime;
     public float enemySpeed;
-    public int homingTimes;
+    private int homingTimes;
     public int maxHomingTimes;
     // Start is called before the first frame update
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
+        player = GameObject.FindWithTag("Player");
         rb.gravityScale = 0;
         rb.drag = 0;
         time = 0f;
@@ -26,7 +27,7 @@ public class Enemy_bn_Homing : MonoBehaviour
     {
         time += Time.deltaTime;
 
-        if (time > freezTime)
+        if (time > freezeTime)
         {
             homingTimes++;
             if (homingTimes < maxHomingTimes)
