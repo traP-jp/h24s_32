@@ -1846,6 +1846,7 @@ MonoBehaviour:
   groundPos: -3.65
   ShotSpawnPos: {x: 0, y: 0.5, z: 0}
   normalShot: {fileID: 2579295813204565682, guid: a6a1a6abcec854ed698f75223cdec2a8, type: 3}
+  playerAnimator: {fileID: 704022514}
 --- !u!95 &704022514
 Animator:
   serializedVersion: 5
@@ -4621,7 +4622,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1512a00d3fe0341ff950c664c77de28e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startGame: 0
+  startGame: 1
   limitTime: 30
   targetEnemies: 0a000000140000001e00000028000000320000003c0000004600000050000000
   channelNames_Omited:
