@@ -4,14 +4,16 @@ using System.Collections.Generic;
 using JetBrains.Annotations;
 using Unity.Burst.Intrinsics;
 using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEngine;
-
+using DG.Tweening;
 public class Player : MonoBehaviour
 {
     public int maxHP = 10;
     public int currentHP;
+    public float currentHP_Damage_Tween;
     public float coolTimeMax = 1;
-    float coolTime = -100;//これが正だとショットを撃てない
+    public float coolTime = -100;//これが正だとショットを撃てない
     public float moveSpeed = 5;
     public float leftPosLimit = -1.5f;//左方向移動の上限
     public float rightPosLimit = 4.6f;//右方向移動の上限
@@ -22,6 +24,9 @@ public class Player : MonoBehaviour
     [SerializeField] float groundPos = -3.76f;
     float currentJumpSpeed = -10000;
     float moveFreezeTime = -100; //これが正だと動けない
+    float damageHPMoveTimeMAX = 1;
+    float damageHPMoveTime = 100000;
+    float damageDecreaseTime = 0.5f; //Tweenに突っ込む用
     [SerializeField] Vector3 ShotSpawnPos = new Vector3(0, 0.5f, 0);
     [SerializeField] GameObject normalShot;
     Rigidbody2D rb;
@@ -33,6 +38,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         currentHP = maxHP;
+        currentHP_Damage_Tween = maxHP;
         rb = GetComponent<Rigidbody2D>();
     }
 
@@ -58,7 +64,8 @@ public class Player : MonoBehaviour
         if (coolTime < 0 && SpacePushed)
         {
             Vector3 shotBasePos = transform.position;
-            Instantiate(normalShot, shotBasePos += ShotSpawnPos, quaternion.identity);
+            GameObject go = Instantiate(normalShot);
+            go.transform.position = shotBasePos += ShotSpawnPos;
             moveFreezeTime = moveFreezeTimeLimit;
             coolTime = coolTimeMax;
         }
@@ -85,6 +92,15 @@ public class Player : MonoBehaviour
             {
                 rb.position = new Vector2(rb.position.x, groundPos);
                 currentJumpSpeed = -10000;
+            }
+        }
+        if (damageHPMoveTime < 5000)
+        {
+            damageHPMoveTime -= Time.deltaTime;
+            if (damageHPMoveTime < 0)
+            {
+                DOTween.To(() => currentHP_Damage_Tween, (n) => currentHP_Damage_Tween = n, currentHP, damageDecreaseTime);
+                damageHPMoveTime = 100000;
             }
         }
         PushReset();
@@ -114,5 +130,14 @@ public class Player : MonoBehaviour
         LeftPushed = false;
         UpPushed = false;
         SpacePushed = false;
+    }
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.gameObject.tag == "Enemy")
+        {
+            damageHPMoveTime = damageHPMoveTimeMAX;
+            currentHP -= col.gameObject.GetComponent<Enemy>().damage;
+            Destroy(col.gameObject);
+        }
     }
 }
