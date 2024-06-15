@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Shot_Homing : MonoBehaviour
 {
+    // ホーミング強度
+    public float homingPower = 0.0f;
+    // ホーミング強度の上がり幅
+    public float homingPowerIncrease = 0.0005f;
     private float speed;
     private Rigidbody2D _rb;
     // Start is called before the first frame update
@@ -24,8 +28,11 @@ public class Shot_Homing : MonoBehaviour
         {
             Vector2 target = enemy.GetComponent<Transform>().position;
             Vector2 direction = target - (Vector2)transform.position;
+            // ホーミング強度に応じてx軸方向の速度を変更する
+            direction.x *= homingPower;
             _rb.velocity = direction.normalized * speed;
         }
+        homingPower += homingPowerIncrease;
     }
 
     // 一番近くの敵を探す
