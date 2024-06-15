@@ -1,11 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class Shot_Kinano : MonoBehaviour
 {
+    public float shotInterval = 1.0f;
+    public GameObject shotPrefab;
     // プレイヤーとの距離
     public float distanceBetweenPlayer = 1.0f;
+    private float time = 0.0f;
     private float speed;
     private Rigidbody2D _rb;
     private GameObject _player;
@@ -19,6 +23,13 @@ public class Shot_Kinano : MonoBehaviour
 
     // Update is called once per frame
     void Update()
+    {
+        Move();
+        Shot();
+        time += Time.deltaTime;
+    }
+
+    private void Move()
     {
         if (_player != null)
         {
@@ -43,6 +54,15 @@ public class Shot_Kinano : MonoBehaviour
         else
         {
             _player = GameObject.FindGameObjectWithTag("Player");
+        }
+    }
+
+    private void Shot()
+    {
+        if (shotPrefab != null && time > shotInterval)
+        {
+            Instantiate(shotPrefab, transform.position, Quaternion.identity);
+            time = 0.0f;
         }
     }
 }
