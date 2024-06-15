@@ -48,8 +48,10 @@ public class Shot_Bomb : MonoBehaviour
         // 爆発する
         if (currentStep >= preExplosionStep)
         {
-            explosionEffect.transform.position = transform.position;
-            explosionEffect.Play();
+            // 爆発エフェクトをInstantiateする
+            var effect = Instantiate(explosionEffect);
+            effect.transform.position = transform.position;
+            effect.Play();
             Destroy(gameObject);
         }
     }
