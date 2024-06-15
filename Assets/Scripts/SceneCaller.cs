@@ -15,11 +15,11 @@ public class SceneCaller : MonoBehaviour
     }
     public void LoadStageScene(int stageNumber)
     {
-        SceneManager.LoadScene("Scene_" + stageNumber.ToString("D"), LoadSceneMode.Additive);
+        SceneManager.LoadScene("Stage_" + stageNumber.ToString("D"), LoadSceneMode.Additive);
     }
     public void UnloadStageScene(int stageNumber)
     {
-        SceneManager.UnloadSceneAsync("Scene_" + stageNumber.ToString("D"));
+        SceneManager.UnloadSceneAsync("Stage_" + stageNumber.ToString("D"));
     }
     public void LoadOtherScene(string sceneName)
     {
