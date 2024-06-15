@@ -4621,6 +4621,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1512a00d3fe0341ff950c664c77de28e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startGame: 0
   limitTime: 30
   targetEnemies: 0a000000140000001e00000028000000320000003c0000004600000050000000
   channelNames_Omited:
@@ -4650,6 +4651,7 @@ MonoBehaviour:
   - yabai
   - random
   - general
+  stageText: {fileID: 395735636}
   oisuCountText: {fileID: 1235588227}
   oisuTargetText: {fileID: 1360598556}
   oisuTotalText: {fileID: 13997867}

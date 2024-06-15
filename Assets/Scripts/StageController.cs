@@ -8,17 +8,18 @@ using UnityEngine.SceneManagement;
 using UnityEditor.SceneManagement;
 public class StageController : MonoBehaviour
 {
+    public bool startGame = false;
     int stageNumber = 1;
     bool isPlayingStage = false;
     int currentOisuCount = 0;
     int totalOisuCount = 0;
     public float limitTime = 30;
     float leftTime;
-    float startWindowSize = 0;
     public int[] targetEnemies = new int[8];
     public string[] channelNames_Omited = new string[8]; //�ȗ������`�����l����(��Fg/t/karo)
     public string[] channelNames_Former = new string[8]; //�Ō�ȊO�̃`�����l����(��Fgps/times/)
     public string[] channelNames_Latter = new string[8];//�Ō�̃`�����l����(karo)
+    [SerializeField] Text stageText;
     [SerializeField] Text oisuCountText;
     [SerializeField] Text oisuTargetText;
     [SerializeField] Text oisuTotalText;
@@ -37,7 +38,10 @@ public class StageController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartStage();
+        if (startGame)
+        {
+            StartStage();
+        }
     }
 
     // Update is called once per frame
@@ -71,13 +75,8 @@ public class StageController : MonoBehaviour
     }
     public void StartStage()
     {
-        currentChannelNameText.DOText(channelNames_Former[stageNumber - 1] + "<size=80><color=#49535B>" + channelNames_Latter[stageNumber - 1] + "</color></size>", 1, true, ScrambleMode.All);
-        if (stageNumber <= 7)
-        {
-            nextChannelNameText.DOText(channelNames_Omited[stageNumber], 0.7f, true, ScrambleMode.All);
-        }
-        oisuTargetText.DOText("/" + targetEnemies[stageNumber - 1].ToString("D"), 0.5f, true, ScrambleMode.Numerals);
-        sceneCaller.LoadStageScene(stageNumber);
+
+
 
         stageStartWindow.DOSizeDelta(new Vector2(1000, 500), 1f).SetEase(Ease.OutExpo);
         for (int i = 0; i < 4; i++)
@@ -113,6 +112,13 @@ public class StageController : MonoBehaviour
             sceneCaller.LoadStageScene(stageNumber);
             isPlayingStage = true;
             leftTime = limitTime;
+            currentChannelNameText.DOText(channelNames_Former[stageNumber - 1] + "<size=80><color=#49535B>" + channelNames_Latter[stageNumber - 1] + "</color></size>", 1, true, ScrambleMode.All);
+            if (stageNumber <= 7)
+            {
+                nextChannelNameText.DOText(channelNames_Omited[stageNumber], 0.7f, true, ScrambleMode.All);
+            }
+            oisuTargetText.DOText("/" + targetEnemies[stageNumber - 1].ToString("D"), 0.5f, true, ScrambleMode.Numerals);
+            stageText.DOText("ステージ" + stageNumber.ToString("D"), 0.5f, true, ScrambleMode.All);
         });
     }
 }
