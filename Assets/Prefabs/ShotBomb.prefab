@@ -191,3 +191,4 @@ MonoBehaviour:
   preExplosionStep: 5
   currentStep: 0
   explosionTime: 4.17
+  explosionEffect: {fileID: 5457521993014710327, guid: 4c5c555b1d7f24f56b088501a0a9688d, type: 3}

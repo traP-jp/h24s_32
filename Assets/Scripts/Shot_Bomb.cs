@@ -14,6 +14,7 @@ public class Shot_Bomb : MonoBehaviour
     public int currentStep = 0;
     // 爆発までの時間
     public float explosionTime = 3.0f;
+    public ParticleSystem explosionEffect;
     private float speed;
     private Rigidbody2D _rb;
     private Collider2D _collider;
@@ -47,6 +48,8 @@ public class Shot_Bomb : MonoBehaviour
         // 爆発する
         if (currentStep >= preExplosionStep)
         {
+            explosionEffect.transform.position = transform.position;
+            explosionEffect.Play();
             Destroy(gameObject);
         }
     }
