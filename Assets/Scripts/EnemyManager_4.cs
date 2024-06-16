@@ -45,7 +45,7 @@ public class EnemyManager_4 : MonoBehaviour
             {
                 Vector2 spawnPoint = new Vector2(0, 0);
                 spawnPoint.x = Random.Range(-1.9f + 0.5f,5f-0.5f);
-                spawnPoint.y = Random.Range(5f + 0.5f, 5f + 1f);//下限は？
+                spawnPoint.y = Random.Range(0f, 4.5f - 0.5f);//下限は？
                 _enemy_Path = Instantiate(enemy_Path, spawnPoint, quaternion.identity);
                 time = 0;
             }

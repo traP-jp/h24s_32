@@ -166,7 +166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2430267d61f9d844c927ef395e7cc130, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawn_cycle: 2
+  spawn_cycle: 0.6
   enemy_fall: {fileID: 1635100313552946904, guid: ebaf2aa689e33434bb12be90d72e023e, type: 3}
   enemy_fixedspeed: {fileID: 3364684246777081216, guid: 4a443620c2ea6134bb2d576832bf5b08, type: 3}
   enemy_Path: {fileID: 3526781949089259184, guid: 2b644598495dcbe4daef3411f2111d58, type: 3}
