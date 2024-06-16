@@ -13,7 +13,7 @@ public class StageController : MonoBehaviour
     int currentOisuCount = 0;
     int totalOisuCount = 0;
     public float limitTime = 30;
-    float leftTime;
+    [SerializeField] float leftTime;
     public int[] targetEnemies = new int[8];
     public string[] channelNames_Omited = new string[8]; //�ȗ������`�����l����(��Fg/t/karo)
     public string[] channelNames_Former = new string[8]; //�Ō�ȊO�̃`�����l����(��Fgps/times/)
@@ -35,6 +35,7 @@ public class StageController : MonoBehaviour
     [SerializeField] float oisuCountTextPos_x_After;
     [SerializeField] float moveTime = 0.25f;
     [SerializeField] RectTransform clearedWindow;
+    [SerializeField] PowerUpManager powerUpManager;
     [SerializeField] Text ClearedText;
     // Start is called before the first frame update
     void Start()
@@ -57,6 +58,7 @@ public class StageController : MonoBehaviour
                 isPlayingStage = false;
                 if (currentOisuCount >= targetEnemies[stageNumber - 1])
                 {
+                    sceneCaller.UnloadStageScene(stageNumber);
                     ClearedText.DOText("", 0).SetEase(Ease.Linear);
                     ClearedText.DOFade(0, 0);
                     clearedWindow.DOSizeDelta(new Vector2(1000, 150), moveTime * 2).SetEase(Ease.OutExpo);
@@ -65,6 +67,14 @@ public class StageController : MonoBehaviour
                     DOVirtual.DelayedCall(1.5f, () =>
                     {
                         clearedWindow.DOSizeDelta(new Vector2(1000, 0), moveTime * 2).SetEase(Ease.InExpo);
+                    });
+                    DOVirtual.DelayedCall(1.5f + moveTime * 2, () =>
+                    {
+                        powerUpManager.StartPowerUp();
+                    });
+                    DOVirtual.DelayedCall(2 + moveTime * 2, () =>
+                    {
+                        powerUpManager.MovePowerUps(0);
                     });
                 }
             }

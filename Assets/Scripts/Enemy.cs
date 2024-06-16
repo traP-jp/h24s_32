@@ -35,7 +35,14 @@ public class Enemy : MonoBehaviour
             {
                 oisuManager.GetComponent<OisuManager>().CallOisu(IconName);
             }
-            Destroy(col.gameObject);
+            if (col.GetComponent<Shot>().isPenetrate && col.GetComponent<Shot>().penetrateCount == 0)
+            {
+                col.GetComponent<Shot>().penetrateCount++;
+            }
+            else
+            {
+                Destroy(col.gameObject);
+            }
             Destroy(gameObject);
         }
     }
