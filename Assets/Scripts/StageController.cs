@@ -37,9 +37,11 @@ public class StageController : MonoBehaviour
     [SerializeField] RectTransform clearedWindow;
     [SerializeField] PowerUpManager powerUpManager;
     [SerializeField] Text ClearedText;
+    [SerializeField] Image WhiteOut;
     // Start is called before the first frame update
     void Start()
     {
+        WhiteOut.DOFade(0, 0.5f).SetEase(Ease.Linear);
         if (startGame)
         {
             StartStage();
