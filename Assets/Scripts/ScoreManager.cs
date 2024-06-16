@@ -17,6 +17,7 @@ public class ScoreManager : MonoBehaviour
     [SerializeField] Image comboGauge;
     float comboTimeMax = 10;
     float comboTime = 0.001f;
+    float moveTime = 0.3f;
     // Start is called before the first frame update
     void Start()
     {
@@ -48,5 +49,26 @@ public class ScoreManager : MonoBehaviour
         DOTween.To(() => totalScore_Tween, (n) => totalScore_Tween = n, totalScore, 0.5f);
         addedScoreText.text = "+" + (value * (10 + (comboCount / 10)) / 10).ToString("D");
         comboTime = comboTimeMax;
+        addedScoreText.DOKill();
+        addedScoreText.DOFade(0, 0);
+        addedScoreText.DOFade(1, moveTime);
+        addedScoreText.transform.DOKill();
+        addedScoreText.transform.localPosition = new Vector3(35, addedScoreText.transform.localPosition.y, 0);
+        addedScoreText.transform.DOLocalMoveX(49.33f, moveTime * 2).SetEase(Ease.OutExpo);
+        comboText.DOKill();
+        comboText.DOFade(0, 0);
+        comboText.DOFade(1, moveTime);
+        comboText.transform.DOKill();
+        comboText.transform.localPosition = new Vector3(100, comboText.transform.localPosition.y, 0);
+        comboText.transform.DOLocalMoveX(116.677f, moveTime * 2).SetEase(Ease.OutExpo);
+        if (comboCount % 10 == 0)
+        {
+            comboMultiplyText.DOKill();
+            comboMultiplyText.DOFade(0, 0);
+            comboMultiplyText.DOFade(1, moveTime);
+            comboMultiplyText.transform.DOKill();
+            comboMultiplyText.transform.localPosition = new Vector3(50, comboMultiplyText.transform.localPosition.y, 0);
+            comboMultiplyText.transform.DOLocalMoveX(63.97696f, moveTime * 2).SetEase(Ease.OutExpo);
+        }
     }
 }

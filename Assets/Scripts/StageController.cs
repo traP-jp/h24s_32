@@ -5,7 +5,6 @@ using UnityEngine.UI;
 using DG.Tweening;
 using Unity.Burst.Intrinsics;
 using UnityEngine.SceneManagement;
-using UnityEditor.SceneManagement;
 public class StageController : MonoBehaviour
 {
     public bool startGame = false;
