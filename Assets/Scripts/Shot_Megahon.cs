@@ -17,12 +17,14 @@ public class Shot_Megahon : MonoBehaviour
     private float speed;
     private Rigidbody2D _rb;
     private AudioSource _audio;
+    [SerializeField]
+    private AudioClip _megahonClip;
     // Start is called before the first frame update
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
-        _audio = GetComponent<AudioSource>();
-        _audio.Play();
+        _audio = GameObject.FindGameObjectWithTag("SEController").GetComponent<AudioSource>();
+        _audio.PlayOneShot(_megahonClip);
         speed = GetComponent<Shot>().speed;
         // 子関係のshotオブジェクトをshotPrefabsに登録する
         for (int i = 0; i < transform.childCount; i++)
