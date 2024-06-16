@@ -19,6 +19,8 @@ public class Shot_Bomb : MonoBehaviour
     private Rigidbody2D _rb;
     private Collider2D _collider;
     private AudioSource _audio;
+    [SerializeField]
+    private AudioClip _bombSE;
     private float time = 0.0f;
     // Start is called before the first frame update
     void Start()
@@ -27,8 +29,8 @@ public class Shot_Bomb : MonoBehaviour
         speed = GetComponent<Shot>().speed;
         _rb = GetComponent<Rigidbody2D>();       
         _collider = GetComponent<Collider2D>();
-        _audio = GetComponent<AudioSource>();
-        _audio.Play();
+        _audio = GameObject.FindGameObjectWithTag("SEController").GetComponent<AudioSource>();
+        _audio.PlayOneShot(_bombSE);
     }
 
     // Update is called once per frame

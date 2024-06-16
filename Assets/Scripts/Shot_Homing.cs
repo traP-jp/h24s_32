@@ -14,14 +14,16 @@ public class Shot_Homing : MonoBehaviour
     private float speed;
     private Rigidbody2D _rb;
     private AudioSource _audio;
+    [SerializeField]
+    private AudioClip _oisu__;
     private float time;
     // Start is called before the first frame update
     void Start()
     {
         speed = GetComponent<Shot>().speed;
         _rb = GetComponent<Rigidbody2D>();
-        _audio = GetComponent<AudioSource>();
-        _audio.Play();
+        _audio = GameObject.FindGameObjectWithTag("SEController").GetComponent<AudioSource>();
+        _audio.PlayOneShot(_oisu__);
         time = 0.0f;
     }
 
