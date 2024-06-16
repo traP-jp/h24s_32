@@ -18,6 +18,7 @@ public class Shot_Bomb : MonoBehaviour
     private float speed;
     private Rigidbody2D _rb;
     private Collider2D _collider;
+    private float time = 0.0f;
     // Start is called before the first frame update
     void Start()
     {
@@ -31,7 +32,7 @@ public class Shot_Bomb : MonoBehaviour
     {
         // 段階までの時間までに応じて段階を上げる
         float deltaExplostionTime = explosionTime / preExplosionStep;
-        if (Time.time > deltaExplostionTime * (currentStep + 1))
+        if (time > deltaExplostionTime * (currentStep + 1))
         {
             currentStep++;
         }
@@ -54,5 +55,6 @@ public class Shot_Bomb : MonoBehaviour
             effect.Play();
             Destroy(gameObject);
         }
+        time += Time.deltaTime;
     }
 }
