@@ -29,6 +29,7 @@ public class PowerUpManager : MonoBehaviour
     [SerializeField] StageController stageController;
     [SerializeField] Text PowerUpChooseText;
     [SerializeField] Text PowerUpGuidanceText;
+    [SerializeField] GameOverController gameOverController;
     // Start is called before the first frame update
     void Start()
     {
@@ -161,7 +162,14 @@ public class PowerUpManager : MonoBehaviour
         DOVirtual.DelayedCall(1.5f, () =>
         {
             stageController.stageNumber++;
-            stageController.StartStage();
+            if (stageController.stageNumber != 8)
+            {
+                stageController.StartStage();
+            }
+            else
+            {
+                gameOverController.GameEnd(true);
+            }
         });
     }
 }

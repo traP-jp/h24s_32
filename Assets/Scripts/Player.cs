@@ -61,6 +61,7 @@ public class Player : MonoBehaviour
     [SerializeField] AudioClip Jump;
     [SerializeField] AudioClip Oisu;
     [SerializeField] AudioClip bigOisu;
+    [SerializeField] GameOverController gameOverController;
     // Start is called before the first frame update
     void Start()
     {
@@ -233,6 +234,10 @@ public class Player : MonoBehaviour
             damageHPMoveTime = damageHPMoveTimeMAX;
             currentHP -= col.gameObject.GetComponent<Enemy>().damage;
             Destroy(col.gameObject);
+            if (currentHP <= 0)
+            {
+                gameOverController.GameEnd(false);
+            }
         }
     }
     public void OisuCharge()

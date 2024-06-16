@@ -11,7 +11,7 @@ public class StageController : MonoBehaviour
     public int stageNumber = 1;
     public bool isPlayingStage = false;
     int currentOisuCount = 0;
-    int totalOisuCount = 0;
+    public int totalOisuCount = 0;
     public float limitTime = 30;
     [SerializeField] float leftTime;
     public int[] targetEnemies = new int[8];
@@ -41,6 +41,8 @@ public class StageController : MonoBehaviour
     [SerializeField] AudioSource BGMController;
     [SerializeField] AudioSource BGMController_Loop;
     [SerializeField] AudioClip BGM2;
+    [SerializeField] AudioClip BGM_Failed;
+    [SerializeField] GameOverController gameOverController;
     // Start is called before the first frame update
     void Start()
     {
@@ -61,7 +63,7 @@ public class StageController : MonoBehaviour
             if (leftTime < 0 && isPlayingStage)
             {
                 isPlayingStage = false;
-                if (currentOisuCount >= targetEnemies[stageNumber - 1])
+                if (currentOisuCount >= targetEnemies[stageNumber - 1] && !gameOverController.GameEnded)
                 {
                     BGMController.DOFade(0, 1).SetEase(Ease.Linear);
                     DOVirtual.DelayedCall(1, () =>
@@ -89,6 +91,29 @@ public class StageController : MonoBehaviour
                         powerUpManager.MovePowerUps(0);
                     });
                 }
+                else if (!gameOverController.GameEnded)
+                {
+                    BGMController.DOFade(0, 1).SetEase(Ease.Linear);
+                    DOVirtual.DelayedCall(1, () =>
+                    {
+                        BGMController.Stop();
+                    });
+                    sceneCaller.UnloadStageScene(stageNumber);
+                    ClearedText.DOText("", 0).SetEase(Ease.Linear);
+                    ClearedText.DOFade(0, 0);
+                    clearedWindow.DOSizeDelta(new Vector2(1000, 150), moveTime * 2).SetEase(Ease.OutExpo);
+                    ClearedText.DOText("Failed...", moveTime * 2, true, ScrambleMode.All).SetEase(Ease.Linear);
+                    ClearedText.color = new Color(0.3f, 0.3f, 0.3f, 0);
+                    ClearedText.DOFade(1, moveTime * 2);
+                    DOVirtual.DelayedCall(1.5f, () =>
+                    {
+                        clearedWindow.DOSizeDelta(new Vector2(1000, 0), moveTime * 2).SetEase(Ease.InExpo);
+                    });
+                    DOVirtual.DelayedCall(1.5f + moveTime * 2, () =>
+                    {
+                        gameOverController.GameEnd(false);
+                    });
+                }
             }
         }
     }
@@ -106,58 +131,59 @@ public class StageController : MonoBehaviour
     }
     public void StartStage()
     {
-
-
-        currentOisuCount = 0;
-        stageStartWindow.DOSizeDelta(new Vector2(1000, 500), 1f).SetEase(Ease.OutExpo);
-        for (int i = 0; i < 4; i++)
+        if (!gameOverController.GameEnded)
         {
-            stageStartWindow.transform.GetChild(i).GetComponent<Text>().DOFade(0, 0);
-            int Delay = i;
-            DOVirtual.DelayedCall(Delay * 0.2f, () =>
+            currentOisuCount = 0;
+            stageStartWindow.DOSizeDelta(new Vector2(1000, 500), 1f).SetEase(Ease.OutExpo);
+            for (int i = 0; i < 4; i++)
             {
-                stageStartWindow.transform.GetChild(Delay).GetComponent<Text>().DOFade(1, 0.5f);
-                switch (Delay)
+                stageStartWindow.transform.GetChild(i).GetComponent<Text>().DOFade(0, 0);
+                int Delay = i;
+                DOVirtual.DelayedCall(Delay * 0.2f, () =>
                 {
-                    case 0:
-                        stageNumberText_start.DOText("Stage " + stageNumber.ToString("D"), 0.5f, true, ScrambleMode.All).SetEase(Ease.Linear);
-                        break;
-                    case 1:
-                        channelNameText_start.DOText("#" + channelNames_Former[stageNumber - 1] + channelNames_Latter[stageNumber - 1], 1f, true, ScrambleMode.All).SetEase(Ease.Linear);
-                        break;
-                    case 2:
-                        targetOisu_start.DOText("目標おいすー数", 0.5f, true, ScrambleMode.All).SetEase(Ease.Linear);
-                        break;
-                    case 3:
-                        targetOisuText_start.DOText(targetEnemies[stageNumber - 1].ToString("D"), 0.5f, true, ScrambleMode.Numerals).SetEase(Ease.Linear);
-                        break;
+                    stageStartWindow.transform.GetChild(Delay).GetComponent<Text>().DOFade(1, 0.5f);
+                    switch (Delay)
+                    {
+                        case 0:
+                            stageNumberText_start.DOText("Stage " + stageNumber.ToString("D"), 0.5f, true, ScrambleMode.All).SetEase(Ease.Linear);
+                            break;
+                        case 1:
+                            channelNameText_start.DOText("#" + channelNames_Former[stageNumber - 1] + channelNames_Latter[stageNumber - 1], 1f, true, ScrambleMode.All).SetEase(Ease.Linear);
+                            break;
+                        case 2:
+                            targetOisu_start.DOText("目標おいすー数", 0.5f, true, ScrambleMode.All).SetEase(Ease.Linear);
+                            break;
+                        case 3:
+                            targetOisuText_start.DOText(targetEnemies[stageNumber - 1].ToString("D"), 0.5f, true, ScrambleMode.Numerals).SetEase(Ease.Linear);
+                            break;
+                    }
+                });
+            }
+            DOVirtual.DelayedCall(2.5f, () =>
+            {
+                stageStartWindow.DOSizeDelta(new Vector2(1000, 0), 1f).SetEase(Ease.InExpo);
+            });
+            DOVirtual.DelayedCall(3.5f, () =>
+            {
+                sceneCaller.LoadStageScene(stageNumber);
+                isPlayingStage = true;
+                leftTime = limitTime;
+                currentChannelNameText.DOText(channelNames_Former[stageNumber - 1] + "<size=80><color=#49535B>" + channelNames_Latter[stageNumber - 1] + "</color></size>", 1, true, ScrambleMode.All);
+                if (stageNumber <= 7)
+                {
+                    nextChannelNameText.DOText(channelNames_Omited[stageNumber], 0.7f, true, ScrambleMode.All);
                 }
+                oisuTargetText.DOText("/" + targetEnemies[stageNumber - 1].ToString("D"), 0.5f, true, ScrambleMode.Numerals);
+                stageText.DOText("ステージ" + stageNumber.ToString("D"), 0.5f, true, ScrambleMode.All);
+
+                if (stageNumber > 4)
+                {
+                    BGMController.clip = BGM2;
+                }
+                BGMController.Play();
+                BGMController_Loop.DOFade(0, 1).SetEase(Ease.Linear);
+                BGMController.DOFade(1, 1).SetEase(Ease.Linear);
             });
         }
-        DOVirtual.DelayedCall(2.5f, () =>
-        {
-            stageStartWindow.DOSizeDelta(new Vector2(1000, 0), 1f).SetEase(Ease.InExpo);
-        });
-        DOVirtual.DelayedCall(3.5f, () =>
-        {
-            sceneCaller.LoadStageScene(stageNumber);
-            isPlayingStage = true;
-            leftTime = limitTime;
-            currentChannelNameText.DOText(channelNames_Former[stageNumber - 1] + "<size=80><color=#49535B>" + channelNames_Latter[stageNumber - 1] + "</color></size>", 1, true, ScrambleMode.All);
-            if (stageNumber <= 7)
-            {
-                nextChannelNameText.DOText(channelNames_Omited[stageNumber], 0.7f, true, ScrambleMode.All);
-            }
-            oisuTargetText.DOText("/" + targetEnemies[stageNumber - 1].ToString("D"), 0.5f, true, ScrambleMode.Numerals);
-            stageText.DOText("ステージ" + stageNumber.ToString("D"), 0.5f, true, ScrambleMode.All);
-
-            if (stageNumber > 4)
-            {
-                BGMController.clip = BGM2;
-            }
-            BGMController.Play();
-            BGMController_Loop.DOFade(0, 1).SetEase(Ease.Linear);
-            BGMController.DOFade(1, 1).SetEase(Ease.Linear);
-        });
     }
 }
