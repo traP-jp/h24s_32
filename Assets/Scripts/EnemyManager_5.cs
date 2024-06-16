@@ -44,7 +44,7 @@ public class EnemyManager_5 : MonoBehaviour
             }else 
             {
                 Vector2 spawnPoint = new Vector2(0, 0);
-                spawnPoint.x = Random.Range(-1.9f + 0.5f,5f-0.5f);
+                spawnPoint.x = Random.Range(-2.5f ,1.5f-0.5f);
                 spawnPoint.y = Random.Range(5f + 0.5f, 5f + 1f);//下限は？
                 _enemy_ZigzagFall = Instantiate(enemy_ZigzagFall, spawnPoint, quaternion.identity);
                 time = 0;
