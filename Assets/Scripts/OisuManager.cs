@@ -35,7 +35,7 @@ public class OisuManager : MonoBehaviour
         go.transform.localScale = new Vector3(1, 1, 1);
         OisuPos_Destination -= OisuInterval;
         DOTween.To(() => OisuPos_Current, (n) => OisuPos_Current = n, OisuPos_Destination, OisuMoveTime);
-        go.transform.GetChild(0).GetComponent<Text>().text = Name + "さんが";
+        go.transform.GetChild(0).GetComponent<Text>().text = "<color=#005BAB><b>@" + Name + "</b></color>さんが";
         go.GetComponent<OisuObjectController>().OisuNumber = OisuCount;
         go.GetComponent<OisuObjectController>().manager = GetComponent<OisuManager>();
     }
