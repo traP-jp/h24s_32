@@ -4,17 +4,22 @@ using UnityEngine;
 
 public class Shot_Homing : MonoBehaviour
 {
+    public bool isHoming = true;
+    // ホーミングする時間
+    public float homingTime = 1.5f;
     // ホーミング強度
     public float homingPower = 0.0f;
     // ホーミング強度の上がり幅
     public float homingPowerIncrease = 0.00005f;
     private float speed;
     private Rigidbody2D _rb;
+    private float time;
     // Start is called before the first frame update
     void Start()
     {
         speed = GetComponent<Shot>().speed;
         _rb = GetComponent<Rigidbody2D>();
+        time = 0.0f;
     }
 
     // Update is called once per frame
@@ -24,7 +29,7 @@ public class Shot_Homing : MonoBehaviour
         _rb.velocity = transform.up * speed;
         // Searchで見つけた敵に向かって移動する
         GameObject enemy = SearchEnemy();
-        if (enemy != null)
+        if (isHoming && enemy != null)
         {
             Vector2 target = enemy.GetComponent<Transform>().position;
             Vector2 idealDirection = target - (Vector2)transform.position;
@@ -35,7 +40,12 @@ public class Shot_Homing : MonoBehaviour
             // ホーミング角度に応じて回転させる
             transform.rotation = Quaternion.LookRotation(Vector3.forward, direction.normalized);
         }
+        if (time > homingTime)
+        {
+            isHoming = false;
+        }
         homingPower += homingPowerIncrease;
+        time += Time.deltaTime;
     }
 
     // 一番近くの敵を探す
