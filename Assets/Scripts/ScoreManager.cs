@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class ScoreManager : MonoBehaviour
 {
-    int totalScore = 0;
+    public int totalScore = 0;
     int totalScore_Tween = 0;
     int comboCount = 0;
     [SerializeField] StageController stageController;
