@@ -2343,6 +2343,7 @@ MonoBehaviour:
   isShotPenetrate: 0
   moveSpeedMultiply: 1
   is3wayActive: 0
+  stageController: {fileID: 1949090900}
 --- !u!95 &704022514
 Animator:
   serializedVersion: 5
