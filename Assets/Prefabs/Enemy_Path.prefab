@@ -165,8 +165,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   path: {fileID: 2808143064873621446, guid: 83c4959ec54ecf2479fe8f588bc88e47, type: 3}
   freezTime: 1
-  actStartTime: 3
-  moveStartTime: 6
+  actStartTime: 2
+  moveStartTime: 5
   enemySpeed: 10
   firstPathSize: 0.4
   enemyAirResistance: 1
