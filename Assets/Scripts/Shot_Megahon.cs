@@ -16,10 +16,13 @@ public class Shot_Megahon : MonoBehaviour
     public float rotateSpeed = 10.0f;
     private float speed;
     private Rigidbody2D _rb;
+    private AudioSource _audio;
     // Start is called before the first frame update
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
+        _audio = GetComponent<AudioSource>();
+        _audio.Play();
         speed = GetComponent<Shot>().speed;
         // 子関係のshotオブジェクトをshotPrefabsに登録する
         for (int i = 0; i < transform.childCount; i++)
