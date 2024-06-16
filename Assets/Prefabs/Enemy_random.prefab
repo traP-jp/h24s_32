@@ -193,8 +193,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a35fe5604076fb6489b50d601143fbb8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxLen: 0
-  freezeTime: 0
+  maxLen: 2
+  freezeTime: 2
 --- !u!1 &5554246396369626404
 GameObject:
   m_ObjectHideFlags: 0
