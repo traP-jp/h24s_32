@@ -15,7 +15,7 @@ public class ScoreManager : MonoBehaviour
     [SerializeField] Text comboText;
     [SerializeField] Text comboMultiplyText;
     [SerializeField] Image comboGauge;
-    float comboTimeMax = 10;
+    public float comboTimeMax = 10;
     float comboTime = 0.001f;
     float moveTime = 0.3f;
     public float scoreMultiply = 1;

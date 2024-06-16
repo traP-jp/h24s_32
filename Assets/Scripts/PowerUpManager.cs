@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 public class PowerUpManager : MonoBehaviour
 {
     int chosenPowerUp = 1;
-    bool isPowerUpActive = false;
+    public bool isPowerUpActive = false;
     public int[] PowerUps = new int[3];
     public Text[] PowerUpNameTexts = new Text[3];
     public Text[] PowerUPContentTexts = new Text[3];
@@ -57,7 +57,6 @@ public class PowerUpManager : MonoBehaviour
     }
     public void StartPowerUp()
     {
-        isPowerUpActive = true;
         PowerUpGuidanceText.DOFade(0, 0);
         PowerUpGuidanceText.DOFade(1, 0.5f);
         PowerUpChooseText.DOFade(0, 0);

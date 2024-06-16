@@ -103,6 +103,7 @@ MonoBehaviour:
   IconName: 
   damage: 1
   Score: 100
+  KilledSE: {fileID: 8300000, guid: 72fec6ce2b7ee4f10b08eb0c9b6a1159, type: 3}
 --- !u!50 &4653880606721912030
 Rigidbody2D:
   serializedVersion: 4
