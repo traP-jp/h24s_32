@@ -60,5 +60,10 @@ public class Shot_Megahon : MonoBehaviour
             // 向きを変える
             shotPrefab.transform.up = direction;
         }
+        // 子供が全員消えたら親も消す
+        if (shotPrefabs.All(shotPrefab => shotPrefab == null))
+        {
+            Destroy(gameObject);
+        }
     }
 }
