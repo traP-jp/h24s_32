@@ -55,7 +55,11 @@ public class EnamyManagerStage_7 : MonoBehaviour
             case float threshold_value when threshold_value > 90:
                 for (int i = 0; i < time.Length; i++)
                 {
-                    if (time[i] > timer[i]*levelup[0])
+                    time[i] = 0;
+                }
+                for (int i = 0; i < time.Length; i++)
+                {
+                    if (time[i] > timer[i] * levelup[0])
                     {
                         if (counter[i] < counterMax[i])
                         {
@@ -77,7 +81,11 @@ public class EnamyManagerStage_7 : MonoBehaviour
             case float threshold_value when threshold_value > 75:
                 for (int i = 0; i < time.Length; i++)
                 {
-                    if (time[i] > timer[i]*levelup[1])
+                    time[i] = 0;
+                }
+                for (int i = 0; i < time.Length; i++)
+                {
+                    if (time[i] > timer[i] * levelup[1])
                     {
                         if (counter[i] < counterMax[i])
                         {
@@ -99,7 +107,11 @@ public class EnamyManagerStage_7 : MonoBehaviour
             case float threshold_value when threshold_value > 50:
                 for (int i = 0; i < time.Length; i++)
                 {
-                    timer_[i] = Random.Range(0f, timer[i]*levelup[2]);
+                    time[i] = 0;
+                }
+                for (int i = 0; i < time.Length; i++)
+                {
+                    timer_[i] = Random.Range(0f, timer[i] * levelup[2]);
                     if (time[i] > timer_[i])
                     {
                         if (counter[i] < counterMax[i])
@@ -122,7 +134,11 @@ public class EnamyManagerStage_7 : MonoBehaviour
             case float threshold_value when threshold_value > 30:
                 for (int i = 0; i < time.Length; i++)
                 {
-                    timer_[i] = Random.Range(0f, timer[i]*levelup[3]);
+                    time[i] = 0;
+                }
+                for (int i = 0; i < time.Length; i++)
+                {
+                    timer_[i] = Random.Range(0f, timer[i] * levelup[3]);
                     if (time[i] > timer_[i])
                     {
                         if (counter[i] < counterMax[i])
@@ -145,7 +161,11 @@ public class EnamyManagerStage_7 : MonoBehaviour
             case float threshold_value when threshold_value > 10:
                 for (int i = 0; i < time.Length; i++)
                 {
-                    timer_[i] = Random.Range(0f, timer[i]*levelup[4]);
+                    time[i] = 0;
+                }
+                for (int i = 0; i < time.Length; i++)
+                {
+                    timer_[i] = Random.Range(0f, timer[i] * levelup[4]);
                     if (time[i] > timer_[i])
                     {
                         if (counter[i] < counterMax[i])
