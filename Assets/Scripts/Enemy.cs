@@ -9,10 +9,12 @@ public class Enemy : MonoBehaviour
     StageController stageController;
     ScoreManager scoreManager;
     IconManager iconManager;
+    Player player;
     public int damage = 1;
     public int Score = 100;
     void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         oisuManager = GameObject.Find("OisuManager");
         stageController = GameObject.FindGameObjectWithTag("StageController").GetComponent<StageController>();
         scoreManager = GameObject.FindGameObjectWithTag("ScoreManager").GetComponent<ScoreManager>();
@@ -24,6 +26,7 @@ public class Enemy : MonoBehaviour
     {
         if (col.gameObject.tag == "Shot")
         {
+            player.OisuCharge();
             stageController.CountOisu();
             scoreManager.CallCombo(Score);
             if (oisuManager != null)
