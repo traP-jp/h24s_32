@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6091980366554782106}
   - component: {fileID: 6179838097628297997}
   - component: {fileID: 9148630975569566507}
+  - component: {fileID: 6370365082007248694}
   m_Layer: 0
   m_Name: Enemy_Path
   m_TagString: Enemy
@@ -168,7 +169,22 @@ MonoBehaviour:
   moveStartTime: 6
   enemySpeed: 10
   firstPathSize: 0.4
-  enemyAirResistance: 3
+  enemyAirResistance: 1
+--- !u!114 &6370365082007248694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3526781949089259184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55c8ffc61126442dd971645b55202add, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IconName: 
+  damage: 1
+  Score: 100
 --- !u!1 &5783113727715615541
 GameObject:
   m_ObjectHideFlags: 0

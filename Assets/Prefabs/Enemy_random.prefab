@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3289566660699766596}
   - component: {fileID: 8356769556944853213}
   - component: {fileID: 6185921910304066259}
+  - component: {fileID: 1840915859558123526}
   m_Layer: 0
   m_Name: Enemy_random
   m_TagString: Enemy
@@ -103,6 +104,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IconName: 
   damage: 1
+  Score: 100
 --- !u!114 &3289566660699766596
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -115,6 +117,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a35fe5604076fb6489b50d601143fbb8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxLen: 3
+  freezeTime: 2
 --- !u!50 &8356769556944853213
 Rigidbody2D:
   serializedVersion: 4
@@ -177,6 +181,20 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &1840915859558123526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4295193527295859055}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a35fe5604076fb6489b50d601143fbb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxLen: 2
+  freezeTime: 2
 --- !u!1 &5554246396369626404
 GameObject:
   m_ObjectHideFlags: 0

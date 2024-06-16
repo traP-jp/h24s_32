@@ -8,7 +8,14 @@ public class Shot : MonoBehaviour
 {
     public float damage;
     public float speed = 5.0f;
+
     Player player;
+
+    // 貫通するかどうか
+    public bool isPenetrate = false;
+    // 貫通した回数
+    public int penetrateCount = 0;
+
     // Start is called before the first frame update
     void Start()
     {
