@@ -1414,7 +1414,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.45882353, g: 0.45882353, b: 0.45882353, a: 1}
+  m_Color: {r: 0.45882353, g: 0.45882353, b: 0.45882353, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2335,12 +2335,12 @@ MonoBehaviour:
   threeWayShot: {fileID: 1710227892046039895, guid: b3f66bf89e1c54b48baddb41f2520fe2, type: 3}
   playerAnimator: {fileID: 704022514}
   shotSpeedMultiply: 1
-  isHomingActive: 1
+  isHomingActive: 0
   megaMultiply: 1
   shotScaleMultiply: 1
-  coolTimeMultiply: 0.3
+  coolTimeMultiply: 1
   maxHPMultiply: 1
-  isShotPenetrate: 1
+  isShotPenetrate: 0
   moveSpeedMultiply: 1
   is3wayActive: 0
 --- !u!95 &704022514
@@ -4920,12 +4920,12 @@ MonoBehaviour:
   - {fileID: 977117720}
   - {fileID: 262299704}
   powerUpIcons:
+  - {fileID: 21300000, guid: 5642c5ccad60a409a9293ed2e05a1c7b, type: 3}
   - {fileID: 21300000, guid: 318a7e93916fc41c8a81396ac7eeb688, type: 3}
   - {fileID: 21300000, guid: 20defbbfd75e24e278705f6cca29308f, type: 3}
   - {fileID: 21300000, guid: 9d258f83ae71b4922ba2e773cbf000c3, type: 3}
   - {fileID: 21300000, guid: 97428b94cc6a14274bf5209646169beb, type: 3}
   - {fileID: 21300000, guid: 0a0bda7eacaa94b9d9f2dfcd06265e89, type: 3}
-  - {fileID: 21300000, guid: 5642c5ccad60a409a9293ed2e05a1c7b, type: 3}
   - {fileID: 21300000, guid: 2d5a6e31e9d644e95908d05f8b3fbac7, type: 3}
   - {fileID: 21300000, guid: ef332251af33f498ba028934141357c3, type: 3}
   - {fileID: 21300000, guid: e70643fd927044ee2beb42cb3f87c3f4, type: 3}
@@ -4933,8 +4933,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 74826ab0b27194b4883544fa5fc4cf96, type: 3}
   powerUpNames:
   - "\u30A2\u30AF\u30C6\u30A3\u30D3\u30C6\u30A3"
+  - "\u9001\u4FE1"
   - "\u6DFB\u4ED8\u30D5\u30A1\u30A4\u30EB"
-  - "\u5168\u56DE\u5FA9"
   - "\u304A\u6C17\u306B\u5165\u308A"
   - "\u901A\u77E5"
   - "\u691C\u7D22"
@@ -4957,6 +4957,12 @@ MonoBehaviour:
   - "\u5F3E\u304C3way\u306B\u306A\u308B"
   powerUpNotSecondChoice: 0000000000010000010001
   WeightsOfPowerUp: 9600000032000000320000006400000032000000320000003200000032000000320000003200000032000000
+  player: {fileID: 704022513}
+  scoreManager: {fileID: 1658906556}
+  Kinano: {fileID: 3309526158978971353, guid: f0bb7ce3cf4a346a7bb358959749da06, type: 3}
+  stageController: {fileID: 1949090900}
+  PowerUpChooseText: {fileID: 565374492}
+  PowerUpGuidanceText: {fileID: 1664165745}
 --- !u!1 &1448107851
 GameObject:
   m_ObjectHideFlags: 0
@@ -5653,7 +5659,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.45882353, g: 0.45882353, b: 0.45882353, a: 1}
+  m_Color: {r: 0.45882353, g: 0.45882353, b: 0.45882353, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -6261,10 +6267,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startGame: 1
+  stageNumber: 1
   isPlayingStage: 0
   limitTime: 30
   leftTime: 0
-  targetEnemies: 00000000140000001e00000028000000320000003c0000004600000050000000
+  targetEnemies: 0000000000000000000000000000000000000000000000000000000000000000
   channelNames_Omited:
   - e/h/2/32
   - e/h/24spring

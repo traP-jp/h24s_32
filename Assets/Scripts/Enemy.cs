@@ -23,6 +23,13 @@ public class Enemy : MonoBehaviour
         transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = iconManager.Icons[Random.Range(0, iconManager.Icons.Length)];
         IconName = transform.GetChild(0).GetComponent<SpriteRenderer>().sprite.name;
     }
+    void Update()
+    {
+        if (transform.position.y < -10)
+        {
+            Destroy(gameObject);
+        }
+    }
     void OnTriggerEnter2D(Collider2D col)
     {
         if (col.gameObject.tag == "Shot" && !isKilled)
