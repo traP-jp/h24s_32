@@ -34,6 +34,8 @@ public class StageController : MonoBehaviour
     [SerializeField] float oisuCountTextPos_x_Before;
     [SerializeField] float oisuCountTextPos_x_After;
     [SerializeField] float moveTime = 0.25f;
+    [SerializeField] RectTransform clearedWindow;
+    [SerializeField] Text ClearedText;
     // Start is called before the first frame update
     void Start()
     {
@@ -50,12 +52,20 @@ public class StageController : MonoBehaviour
         {
             leftTime -= Time.deltaTime;
             leftTimeText.text = leftTime.ToString("F2");
-            if (leftTime < 0)
+            if (leftTime < 0 && isPlayingStage)
             {
                 isPlayingStage = false;
                 if (currentOisuCount >= targetEnemies[stageNumber - 1])
                 {
-
+                    ClearedText.DOText("", 0).SetEase(Ease.Linear);
+                    ClearedText.DOFade(0, 0);
+                    clearedWindow.DOSizeDelta(new Vector2(1000, 150), moveTime * 2).SetEase(Ease.OutExpo);
+                    ClearedText.DOText("Cleared!", moveTime * 2, true, ScrambleMode.All).SetEase(Ease.Linear);
+                    ClearedText.DOFade(1, moveTime * 2);
+                    DOVirtual.DelayedCall(1.5f, () =>
+                    {
+                        clearedWindow.DOSizeDelta(new Vector2(1000, 0), moveTime * 2).SetEase(Ease.InExpo);
+                    });
                 }
             }
         }
