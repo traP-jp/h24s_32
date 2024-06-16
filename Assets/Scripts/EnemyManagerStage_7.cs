@@ -187,7 +187,7 @@ public class EnamyManagerStage_7 : MonoBehaviour
         Vector2 spawnPoint = new(0, 0)
         {
             x = Random.Range(x_min + icon_radius, x_max - icon_radius),
-            y = Random.Range(0f, 5f - icon_radius)
+            y = Random.Range(0f, 4.5f - icon_radius)
         };
         return spawnPoint;
     }
