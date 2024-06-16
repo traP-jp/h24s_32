@@ -31,6 +31,7 @@ public class Shot_Bomb : MonoBehaviour
         _collider = GetComponent<Collider2D>();
         _audio = GameObject.FindGameObjectWithTag("SEController").GetComponent<AudioSource>();
         _audio.PlayOneShot(_bombSE);
+        GetComponent<Shot>().isPenetrate = true;
     }
 
     // Update is called once per frame
