@@ -40,7 +40,7 @@ public class Shot_Megahon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // _rb.velocity = Vector2.up * speed;
+        _rb.velocity = Vector2.up * speed;
         // 子供オブジェクトを自分の周りを回転させる
         for (int i = 0; i < shotPrefabs.Length; i++)
         {
