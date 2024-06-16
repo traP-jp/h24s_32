@@ -22,7 +22,7 @@ public class Shot : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         float changedScale = transform.localScale.x * player.shotScaleMultiply;
         transform.localScale = new Vector3(changedScale, changedScale, 1);
-        speed *= player.shotSpeedMultiply;
+        speed = speed * player.shotSpeedMultiply;
         isPenetrate = player.isShotPenetrate;
     }
 

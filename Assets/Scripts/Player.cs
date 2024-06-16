@@ -54,7 +54,7 @@ public class Player : MonoBehaviour
     public bool isShotPenetrate = false;
     public float moveSpeedMultiply = 1;
     public bool is3wayActive = false;
-
+    [SerializeField] StageController stageController;
     // Start is called before the first frame update
     void Start()
     {
@@ -129,13 +129,6 @@ public class Player : MonoBehaviour
                 }
                 Vector3 shotBasePos = transform.position;
                 GameObject go = Instantiate(Target);
-                if (is3wayActive)
-                {
-                    go.GetComponent<Shot_3Way>().shotPrefab.GetComponent<Shot>().speed = go.GetComponent<Shot_3Way>().shotPrefab.GetComponent<Shot>().speed * shotSpeedMultiply;
-                }
-                else
-                {
-                }
                 go.transform.position = shotBasePos += ShotSpawnPos;
                 moveFreezeTime = moveFreezeTimeLimit;
                 coolTime = coolTimeMax * coolTimeMultiply;
@@ -223,7 +216,7 @@ public class Player : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.gameObject.tag == "Enemy")
+        if (col.gameObject.tag == "Enemy" && stageController.isPlayingStage)
         {
             kyamera.transform.DOShakePosition(0.5f, 0.4f, 20);
             damageHPMoveTime = damageHPMoveTimeMAX;
