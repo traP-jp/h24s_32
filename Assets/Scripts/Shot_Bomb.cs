@@ -18,6 +18,7 @@ public class Shot_Bomb : MonoBehaviour
     private float speed;
     private Rigidbody2D _rb;
     private Collider2D _collider;
+    private AudioSource _audio;
     private float time = 0.0f;
     // Start is called before the first frame update
     void Start()
@@ -26,6 +27,8 @@ public class Shot_Bomb : MonoBehaviour
         speed = GetComponent<Shot>().speed;
         _rb = GetComponent<Rigidbody2D>();       
         _collider = GetComponent<Collider2D>();
+        _audio = GetComponent<AudioSource>();
+        _audio.Play();
     }
 
     // Update is called once per frame
