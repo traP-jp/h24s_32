@@ -53,10 +53,7 @@ public class EnamyManagerStage_7 : MonoBehaviour
         switch (hpPercentage)
         {
             case float threshold_value when threshold_value > 90:
-                for (int i = 0; i < time.Length; i++)
-                {
-                    time[i] = 0;
-                }
+
                 for (int i = 0; i < time.Length; i++)
                 {
                     if (time[i] > timer[i] * levelup[0])
@@ -79,10 +76,7 @@ public class EnamyManagerStage_7 : MonoBehaviour
                 }
                 break;
             case float threshold_value when threshold_value > 75:
-                for (int i = 0; i < time.Length; i++)
-                {
-                    time[i] = 0;
-                }
+
                 for (int i = 0; i < time.Length; i++)
                 {
                     if (time[i] > timer[i] * levelup[1])
@@ -105,10 +99,7 @@ public class EnamyManagerStage_7 : MonoBehaviour
                 }
                 break;
             case float threshold_value when threshold_value > 50:
-                for (int i = 0; i < time.Length; i++)
-                {
-                    time[i] = 0;
-                }
+
                 for (int i = 0; i < time.Length; i++)
                 {
                     timer_[i] = Random.Range(0f, timer[i] * levelup[2]);
@@ -132,10 +123,7 @@ public class EnamyManagerStage_7 : MonoBehaviour
                 }
                 break;
             case float threshold_value when threshold_value > 30:
-                for (int i = 0; i < time.Length; i++)
-                {
-                    time[i] = 0;
-                }
+
                 for (int i = 0; i < time.Length; i++)
                 {
                     timer_[i] = Random.Range(0f, timer[i] * levelup[3]);
@@ -159,10 +147,7 @@ public class EnamyManagerStage_7 : MonoBehaviour
                 }
                 break;
             case float threshold_value when threshold_value > 10:
-                for (int i = 0; i < time.Length; i++)
-                {
-                    time[i] = 0;
-                }
+
                 for (int i = 0; i < time.Length; i++)
                 {
                     timer_[i] = Random.Range(0f, timer[i] * levelup[4]);
