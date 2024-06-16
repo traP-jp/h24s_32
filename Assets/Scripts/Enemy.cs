@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Burst.Intrinsics;
 using UnityEngine;
-
+using DG.Tweening;
 public class Enemy : MonoBehaviour
 {
     public string IconName;
@@ -22,6 +23,8 @@ public class Enemy : MonoBehaviour
         iconManager = GameObject.FindGameObjectWithTag("IconManager").GetComponent<IconManager>();
         transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = iconManager.Icons[Random.Range(0, iconManager.Icons.Length)];
         IconName = transform.GetChild(0).GetComponent<SpriteRenderer>().sprite.name;
+        transform.localScale = new Vector3(0, 0, 0);
+        transform.DOScale(new Vector3(0.5f, 0.5f, 1), 0.4f);
     }
     void Update()
     {
