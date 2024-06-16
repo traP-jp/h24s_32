@@ -3,7 +3,12 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Enemy
+  - Shot
+  - StageController
+  - ScoreManager
+  - IconManager
   layers:
   - Default
   - TransparentFX
@@ -38,6 +43,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Enemy
+    uniqueID: 122836703
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
