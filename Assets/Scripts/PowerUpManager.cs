@@ -117,8 +117,8 @@ public class PowerUpManager : MonoBehaviour
                 player.shotSpeedMultiply += 1;
                 break;
             case 2:
-                player.currentHP = player.maxHP;
-                player.currentHP_Damage_Tween = player.maxHP;
+                player.currentHP = (int)(player.maxHP * player.maxHPMultiply);
+                player.currentHP_Damage_Tween = (int)(player.maxHP * player.maxHPMultiply);
                 break;
             case 3:
                 scoreManager.scoreMultiply += 0.5f;

@@ -29,23 +29,23 @@ public class EnemyManager_5 : MonoBehaviour
             if (Random.Range(0f, 1f) < 1/3f)
             {
                 Vector2 spawnPoint = new Vector2(0, 0);
-                spawnPoint.x = Random.Range(-1.5f,4.6f);
-                spawnPoint.y = Random.Range(-5f * 0.5f, 5f);//下限は？
+                spawnPoint.x = Random.Range(-1.9f + 0.5f,5f-0.5f);
+                spawnPoint.y = Random.Range(5f + 0.5f, 5f + 1f);//下限は？
                 _enemy_fall = Instantiate(enemy_fall, spawnPoint, quaternion.identity);
                 time = 0;
             }
             else if(Random.Range(0f, 1f) < 1/3f)
             {
                 Vector2 spawnPoint = new Vector2(0, 0);
-                spawnPoint.x = Random.Range(-(5f - 0.5f), (5f - 0.5f));
-                spawnPoint.y = Random.Range(-5f * 0.5f, 5f);//下限は？
+                spawnPoint.x = Random.Range(-1.9f + 0.5f,5f-0.5f);
+                spawnPoint.y = Random.Range(5f + 0.5f, 5f + 1f);//下限は？
                 _enemy_fixedspeed = Instantiate(enemy_fixedspeed, spawnPoint, quaternion.identity);
                 time = 0;
             }else 
             {
                 Vector2 spawnPoint = new Vector2(0, 0);
-                spawnPoint.x = Random.Range(-1.5f,4.6f);
-                spawnPoint.y = Random.Range(-5f * 0.5f, 5f);//下限は？
+                spawnPoint.x = Random.Range(-1.9f + 0.5f,5f-0.5f);
+                spawnPoint.y = Random.Range(5f + 0.5f, 5f + 1f);//下限は？
                 _enemy_ZigzagFall = Instantiate(enemy_ZigzagFall, spawnPoint, quaternion.identity);
                 time = 0;
             }
