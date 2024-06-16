@@ -33,7 +33,7 @@ public class EnamyManagerStage_8 : MonoBehaviour
     private Enemy_bn_Homing homing;
     private Enemy_bn_path path;
     private Enemy_bn_random random;
-
+    private float fallG_,fallD_,fixedSpeed_,carA_,carD_,zigSr_,zigSs_,zigS_,homingF_,homingE_,pathF_,pathA_,pathM_,pathEs_,pathEar_,randomF_,randomM_;
 
     // Start is called before the first frame update
     void Start()
@@ -165,6 +165,7 @@ public class EnamyManagerStage_8 : MonoBehaviour
                             {
                                 RandomMaker();
                                 Pop(enemys[i], RandPos());
+                                RandomResetter();
                                 counter[i]++;
                                 time[i] = 0;
                             }
@@ -172,6 +173,7 @@ public class EnamyManagerStage_8 : MonoBehaviour
                             {
                                 RandomMaker();
                                 Pop(enemys[i], RandPosInField());
+                                RandomResetter();
                                 counter[i]++;
                                 time[i] = 0;
                             }
@@ -195,6 +197,7 @@ public class EnamyManagerStage_8 : MonoBehaviour
                             {
                                 RandomMaker();
                                 Pop(enemys[i], RandPos());
+                                RandomResetter();
                                 counter[i]++;
                                 time[i] = 0;
                             }
@@ -202,6 +205,7 @@ public class EnamyManagerStage_8 : MonoBehaviour
                             {
                                 RandomMaker();
                                 Pop(enemys[i], RandPosInField());
+                                RandomResetter();
                                 counter[i]++;
                                 time[i] = 0;
                             }
@@ -237,6 +241,24 @@ public class EnamyManagerStage_8 : MonoBehaviour
     }
     void RandomMaker()
     {
+        fallG_ = fall.gravityScale;
+        fallD_ = fall.drag;
+        fixedSpeed_ = fixedSpeed.targetVelocity;
+        carA_ = car.Appeartime;
+        carD_ = car.drag;
+        zigSr_ = zig.swingRange;
+        zigSs_ = zig.swingSpeed;
+        zigS_=  zig.speed;
+        homingF_ = homing.freezeTime;
+        homingE_ = homing.enemySpeed;
+        pathF_ = path.freezTime;
+        pathA_ = path.actStartTime;
+        pathM_ = path.moveStartTime;
+        pathEs_ = path.enemySpeed;
+        pathEar_ = path.enemyAirResistance;
+        randomF_ = random.freezeTime;
+        randomM_ = random.maxLen;
+
         fall.gravityScale = Random.Range(1f, 2f);
         fall.drag = Random.Range(0f, 2f);
         fixedSpeed.targetVelocity = Random.Range(0.05f, 0.2f);
@@ -254,5 +276,25 @@ public class EnamyManagerStage_8 : MonoBehaviour
         path.enemyAirResistance = Random.Range(0f, 1.5f);
         random.freezeTime = Random.Range(0f, 1.5f);
         random.maxLen = Random.Range(2f, 5f);
+    }
+    void RandomResetter()
+    {
+        fall.gravityScale = fallG_;
+        fall.drag = fallD_;
+        fixedSpeed.targetVelocity = fixedSpeed_;
+        car.Appeartime = carA_;
+        car.drag = carD_;
+        zig.swingRange = zigSr_;
+        zig.swingSpeed = zigSs_;
+        zig.speed = zigS_;
+        homing.freezeTime = homingF_;
+        homing.enemySpeed = homingE_;
+        path.freezTime = pathF_;
+        path.actStartTime = pathA_;
+        path.moveStartTime = pathM_;
+        path.enemySpeed = pathEs_;
+        path.enemyAirResistance = pathEar_;
+        random.freezeTime = randomF_;
+        random.maxLen = randomM_;
     }
 }
