@@ -7,10 +7,15 @@ using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
 using DG.Tweening;
+using System.Transactions;
 public class Player : MonoBehaviour
 {
+    [SerializeField] GameObject kyamera;
     public int maxHP = 10;
     public int currentHP;
+    public float megaPower_Max = 100;
+    public float megaPower_Current = 80;
+    public float megaPower_Get = 5;
     public float currentHP_Damage_Tween;
     public float coolTimeMax = 1;
     public float coolTime = -100;//これが正だとショットを撃てない
@@ -29,12 +34,15 @@ public class Player : MonoBehaviour
     float damageDecreaseTime = 0.5f; //Tweenに突っ込む用
     [SerializeField] Vector3 ShotSpawnPos = new Vector3(0, 0.5f, 0);
     [SerializeField] GameObject normalShot;
+    [SerializeField] GameObject megaPhoneShot;
+    [SerializeField] Animator playerAnimator;
     Rigidbody2D rb;
     SpriteRenderer playerRenderer;
     bool RightPushed = false;
     bool LeftPushed = false;
     bool UpPushed = false;
     bool SpacePushed = false;
+    bool EnterPushed = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -54,11 +62,19 @@ public class Player : MonoBehaviour
             {
                 rb.position += new Vector2(-moveSpeed * Time.deltaTime, 0);
                 playerRenderer.flipX = false;
+                if (!playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Run"))
+                {
+                    playerAnimator.SetTrigger("RunTrigger");
+                }
             }
             else if (RightPushed && transform.position.x < rightPosLimit)
             {
                 rb.position += new Vector2(moveSpeed * Time.deltaTime, 0);
                 playerRenderer.flipX = true;
+                if (!playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Run"))
+                {
+                    playerAnimator.SetTrigger("RunTrigger");
+                }
             }
         }
         else
@@ -67,6 +83,7 @@ public class Player : MonoBehaviour
         }
         if (coolTime < 0 && SpacePushed)
         {
+            playerAnimator.SetTrigger("OisuTrigger");
             Vector3 shotBasePos = transform.position;
             GameObject go = Instantiate(normalShot);
             go.transform.position = shotBasePos += ShotSpawnPos;
@@ -76,6 +93,18 @@ public class Player : MonoBehaviour
         else if (coolTime > 0)
         {
             coolTime -= Time.deltaTime;
+        }
+        if (EnterPushed && megaPower_Current >= megaPower_Max)
+        {
+            kyamera.transform.DOComplete();
+            kyamera.transform.DOShakePosition(0.5f, 0.4f, 20);
+            megaPower_Current = 0;
+            playerAnimator.SetTrigger("MegaPhoneTrigger");
+            Vector3 shotBasePos = transform.position;
+            GameObject go = Instantiate(megaPhoneShot);
+            go.transform.position = shotBasePos += ShotSpawnPos;
+            moveFreezeTime = moveFreezeTimeLimit;
+            coolTime = coolTimeMax;
         }
         if (UpPushed && transform.position.y < groundPos + 0.1f)
         {
@@ -123,9 +152,13 @@ public class Player : MonoBehaviour
         {
             UpPushed = true;
         }
-        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             SpacePushed = true;
+        }
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            EnterPushed = true;
         }
     }
     void PushReset()
@@ -134,6 +167,7 @@ public class Player : MonoBehaviour
         LeftPushed = false;
         UpPushed = false;
         SpacePushed = false;
+        EnterPushed = false;
     }
     void OnTriggerEnter2D(Collider2D col)
     {
@@ -143,5 +177,9 @@ public class Player : MonoBehaviour
             currentHP -= col.gameObject.GetComponent<Enemy>().damage;
             Destroy(col.gameObject);
         }
+    }
+    public void OisuCharge()
+    {
+        megaPower_Current += megaPower_Get;
     }
 }

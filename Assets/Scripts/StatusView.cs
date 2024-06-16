@@ -10,6 +10,7 @@ public class StatusView : MonoBehaviour
     [SerializeField] Image megaGauge;
     [SerializeField] Image coolTimeGauge;
     [SerializeField] Text coolTimeText;
+    [SerializeField] Text MegaText;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +23,15 @@ public class StatusView : MonoBehaviour
         HPBar.fillAmount = (float)player.currentHP / player.maxHP;
         HPBar_damage.fillAmount = player.currentHP_Damage_Tween / player.maxHP;
         coolTimeGauge.fillAmount = (player.coolTimeMax - player.coolTime) / player.coolTimeMax;
+        megaGauge.fillAmount = player.megaPower_Current / player.megaPower_Max;
+        if (player.megaPower_Current >= player.megaPower_Max)
+        {
+            MegaText.text = "READY!!";
+        }
+        else
+        {
+            MegaText.text = "";
+        }
         if (player.coolTime > 0)
         {
             coolTimeText.text = player.coolTime.ToString("F2");
