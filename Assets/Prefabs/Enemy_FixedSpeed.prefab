@@ -105,6 +105,7 @@ MonoBehaviour:
   damage: 1
   Score: 100
   KilledSE: {fileID: 8300000, guid: 72fec6ce2b7ee4f10b08eb0c9b6a1159, type: 3}
+  OisuEffect: {fileID: 7990861868828268012, guid: afd780887f82e437a97d90295053de09, type: 3}
 --- !u!114 &1084250513592323176
 MonoBehaviour:
   m_ObjectHideFlags: 0

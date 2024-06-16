@@ -16,6 +16,7 @@ public class Enemy : MonoBehaviour
     bool isKilled = false;
     AudioSource SEController;
     [SerializeField] AudioClip KilledSE;
+    [SerializeField] GameObject OisuEffect;
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
@@ -40,6 +41,8 @@ public class Enemy : MonoBehaviour
     {
         if (col.gameObject.tag == "Shot" && !isKilled)
         {
+            GameObject go = Instantiate(OisuEffect);
+            go.transform.position = transform.position;
             SEController.PlayOneShot(KilledSE);
             isKilled = true;
             player.OisuCharge();
