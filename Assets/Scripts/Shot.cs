@@ -11,7 +11,7 @@ public class Shot : MonoBehaviour
 
     Player player;
 
-    // 貫通するかどうか
+    // 貫通するかど�?�?
     public bool isPenetrate = false;
     // 貫通した回数
     public int penetrateCount = 0;
@@ -23,6 +23,7 @@ public class Shot : MonoBehaviour
         float changedScale = transform.localScale.x * player.shotScaleMultiply;
         transform.localScale = new Vector3(changedScale, changedScale, 1);
         speed *= player.shotSpeedMultiply;
+        isPenetrate = player.isShotPenetrate;
     }
 
     // Update is called once per frame
