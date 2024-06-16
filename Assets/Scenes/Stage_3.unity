@@ -151,7 +151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad1cc5e401d712a4ca3dd840d5cc0dd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawn_cycle: 2
+  spawn_cycle: 0.8
   enemy_fall: {fileID: 1635100313552946904, guid: ebaf2aa689e33434bb12be90d72e023e, type: 3}
   enemy_fixedspeed: {fileID: 3364684246777081216, guid: 4a443620c2ea6134bb2d576832bf5b08, type: 3}
   enemy_CAR: {fileID: 6599684784990831427, guid: caa4c9c5d2a36e14499b3b5a3871671f, type: 3}
