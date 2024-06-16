@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 public class StageController : MonoBehaviour
 {
     public bool startGame = false;
-    int stageNumber = 1;
+    public int stageNumber = 1;
     public bool isPlayingStage = false;
     int currentOisuCount = 0;
     int totalOisuCount = 0;
@@ -96,7 +96,7 @@ public class StageController : MonoBehaviour
     {
 
 
-
+        currentOisuCount = 0;
         stageStartWindow.DOSizeDelta(new Vector2(1000, 500), 1f).SetEase(Ease.OutExpo);
         for (int i = 0; i < 4; i++)
         {

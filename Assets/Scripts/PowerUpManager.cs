@@ -5,6 +5,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using Unity.Burst.Intrinsics;
+using Unity.VisualScripting.Antlr3.Runtime;
+using System.Runtime.InteropServices;
 public class PowerUpManager : MonoBehaviour
 {
     int chosenPowerUp = 1;
@@ -21,6 +23,12 @@ public class PowerUpManager : MonoBehaviour
 ;
     bool[] PowerUps_Chosen = new bool[11];
     public int[] WeightsOfPowerUp = new int[11];
+    [SerializeField] Player player;
+    [SerializeField] ScoreManager scoreManager;
+    [SerializeField] GameObject Kinano;
+    [SerializeField] StageController stageController;
+    [SerializeField] Text PowerUpChooseText;
+    [SerializeField] Text PowerUpGuidanceText;
     // Start is called before the first frame update
     void Start()
     {
@@ -40,11 +48,20 @@ public class PowerUpManager : MonoBehaviour
             {
                 MovePowerUps(-1);
             }
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                DecidePowerUp();
+                isPowerUpActive = false;
+            }
         }
     }
     public void StartPowerUp()
     {
         isPowerUpActive = true;
+        PowerUpGuidanceText.DOFade(0, 0);
+        PowerUpGuidanceText.DOFade(1, 0.5f);
+        PowerUpChooseText.DOFade(0, 0);
+        PowerUpChooseText.DOFade(1, 0.5f);
         for (int i = 0; i < 3; i++)
         {
             PowerUpWindows[i].transform.localPosition = new Vector3(PowerUpWindows[i].transform.localPosition.x, -500, 0);
@@ -86,5 +103,66 @@ public class PowerUpManager : MonoBehaviour
         chosenPowerUp += moveValue;
         PowerUpWindows[chosenPowerUp].transform.DOLocalMoveY(-20, 0.3f);
         PowerUpImages[chosenPowerUp].DOColor(new Color(0.95f, 0.6f, 0.3f, 1), 0.3f);
+    }
+    public void DecidePowerUp()
+    {
+        PowerUpGuidanceText.DOFade(0, 0.5f);
+        PowerUpChooseText.DOFade(0, 0.5f);
+        switch (PowerUps[chosenPowerUp])
+        {
+            case 0:
+                player.coolTimeMultiply *= 0.5f;
+                break;
+            case 1:
+                player.shotSpeedMultiply += 1;
+                break;
+            case 2:
+                player.currentHP = player.maxHP;
+                player.currentHP_Damage_Tween = player.maxHP;
+                break;
+            case 3:
+                scoreManager.scoreMultiply += 0.5f;
+                break;
+            case 4:
+                player.shotScaleMultiply += 0.5f;
+                break;
+            case 5:
+                player.isHomingActive = true;
+                break;
+            case 6:
+                player.maxHPMultiply += 0.5f;
+                player.currentHP += player.maxHP / 2;
+                player.currentHP_Damage_Tween += player.maxHP / 2;
+                break;
+            case 7:
+                GameObject go = Instantiate(Kinano);
+                go.transform.position = new Vector3(-1, 0, 0);
+                break;
+            case 8:
+                player.isShotPenetrate = true;
+                break;
+            case 9:
+                player.moveSpeedMultiply += 0.5f;
+                break;
+            case 10:
+                player.is3wayActive = true;
+                break;
+        }
+        for (int i = 0; i < 3; i++)
+        {
+            if (i != chosenPowerUp)
+            {
+                PowerUpWindows[i].transform.DOLocalMoveY(-500, 0.5f);
+            }
+        }
+        DOVirtual.DelayedCall(1, () =>
+        {
+            PowerUpWindows[chosenPowerUp].transform.DOLocalMoveY(500, 0.5f).SetEase(Ease.InSine);
+        });
+        DOVirtual.DelayedCall(1.5f, () =>
+        {
+            stageController.stageNumber++;
+            stageController.StartStage();
+        });
     }
 }
