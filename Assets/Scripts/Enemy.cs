@@ -8,6 +8,7 @@ public class Enemy : MonoBehaviour
     GameObject oisuManager;
     StageController stageController;
     ScoreManager scoreManager;
+    IconManager iconManager;
     public int damage = 1;
     public int Score = 100;
     void Start()
@@ -15,6 +16,9 @@ public class Enemy : MonoBehaviour
         oisuManager = GameObject.Find("OisuManager");
         stageController = GameObject.FindGameObjectWithTag("StageController").GetComponent<StageController>();
         scoreManager = GameObject.FindGameObjectWithTag("ScoreManager").GetComponent<ScoreManager>();
+        iconManager = GameObject.FindGameObjectWithTag("IconManager").GetComponent<IconManager>();
+        transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = iconManager.Icons[Random.Range(0, iconManager.Icons.Length)];
+        IconName = transform.GetChild(0).GetComponent<SpriteRenderer>().sprite.name;
     }
     void OnTriggerEnter2D(Collider2D col)
     {
