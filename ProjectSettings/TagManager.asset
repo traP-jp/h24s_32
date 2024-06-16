@@ -9,6 +9,7 @@ TagManager:
   - StageController
   - ScoreManager
   - IconManager
+  - SEController
   layers:
   - Default
   - TransparentFX
