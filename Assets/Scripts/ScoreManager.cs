@@ -18,6 +18,7 @@ public class ScoreManager : MonoBehaviour
     float comboTimeMax = 10;
     float comboTime = 0.001f;
     float moveTime = 0.3f;
+    public float scoreMultiply = 1;
     // Start is called before the first frame update
     void Start()
     {
@@ -43,7 +44,7 @@ public class ScoreManager : MonoBehaviour
     public void CallCombo(int value)
     {
         comboCount++;
-        totalScore += value * (10 + (comboCount / 10)) / 10;
+        totalScore += (int)(scoreMultiply * value * (10 + (comboCount / 10)) / 10);
         comboMultiplyText.text = "×" + ((float)(10 + (comboCount / 10)) / 10).ToString("F1");
         comboText.text = comboCount.ToString("D");
         DOTween.To(() => totalScore_Tween, (n) => totalScore_Tween = n, totalScore, 0.5f);

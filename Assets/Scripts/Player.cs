@@ -35,6 +35,8 @@ public class Player : MonoBehaviour
     [SerializeField] Vector3 ShotSpawnPos = new Vector3(0, 0.5f, 0);
     [SerializeField] GameObject normalShot;
     [SerializeField] GameObject megaPhoneShot;
+    [SerializeField] GameObject homingShot;
+    [SerializeField] GameObject threeWayShot;
     [SerializeField] Animator playerAnimator;
     Rigidbody2D rb;
     SpriteRenderer playerRenderer;
@@ -43,6 +45,16 @@ public class Player : MonoBehaviour
     bool UpPushed = false;
     bool SpacePushed = false;
     bool EnterPushed = false;
+    public float shotSpeedMultiply = 1;
+    public bool isHomingActive = false;
+    public float megaMultiply = 1;
+    public float shotScaleMultiply = 1;
+    public float coolTimeMultiply = 1;
+    public float maxHPMultiply = 1;
+    public bool isShotPenetrate = false;
+    public float moveSpeedMultiply = 1;
+    public bool is3wayActive = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -60,7 +72,7 @@ public class Player : MonoBehaviour
         {
             if (LeftPushed && transform.position.x > leftPosLimit)
             {
-                rb.position += new Vector2(-moveSpeed * Time.deltaTime, 0);
+                rb.position += new Vector2(-moveSpeed * Time.deltaTime * moveSpeedMultiply, 0);
                 playerRenderer.flipX = false;
                 if (!playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Run"))
                 {
@@ -69,7 +81,7 @@ public class Player : MonoBehaviour
             }
             else if (RightPushed && transform.position.x < rightPosLimit)
             {
-                rb.position += new Vector2(moveSpeed * Time.deltaTime, 0);
+                rb.position += new Vector2(moveSpeed * Time.deltaTime * moveSpeedMultiply, 0);
                 playerRenderer.flipX = true;
                 if (!playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Run"))
                 {
@@ -83,12 +95,52 @@ public class Player : MonoBehaviour
         }
         if (coolTime < 0 && SpacePushed)
         {
-            playerAnimator.SetTrigger("OisuTrigger");
-            Vector3 shotBasePos = transform.position;
-            GameObject go = Instantiate(normalShot);
-            go.transform.position = shotBasePos += ShotSpawnPos;
-            moveFreezeTime = moveFreezeTimeLimit;
-            coolTime = coolTimeMax;
+            if (isHomingActive)
+            {
+                playerAnimator.SetTrigger("OisuTrigger");
+                GameObject Target = homingShot;
+                if (is3wayActive)
+                {
+                    Target = threeWayShot;
+                }
+                Vector3 shotBasePos = transform.position;
+                GameObject go = Instantiate(Target);
+                if (is3wayActive)
+                {
+                    go.GetComponent<Shot_3Way>().shotPrefab = homingShot;
+
+                }
+                else
+                {
+
+                }
+                go.transform.position = shotBasePos += ShotSpawnPos;
+                moveFreezeTime = moveFreezeTimeLimit;
+                coolTime = coolTimeMax * coolTimeMultiply;
+
+            }
+            else
+            {
+                playerAnimator.SetTrigger("OisuTrigger");
+                GameObject Target = normalShot;
+                if (is3wayActive)
+                {
+                    Target = threeWayShot;
+                }
+                Vector3 shotBasePos = transform.position;
+                GameObject go = Instantiate(Target);
+                if (is3wayActive)
+                {
+                    go.GetComponent<Shot_3Way>().shotPrefab.GetComponent<Shot>().speed = go.GetComponent<Shot_3Way>().shotPrefab.GetComponent<Shot>().speed * shotSpeedMultiply;
+                }
+                else
+                {
+                }
+                go.transform.position = shotBasePos += ShotSpawnPos;
+                moveFreezeTime = moveFreezeTimeLimit;
+                coolTime = coolTimeMax * coolTimeMultiply;
+
+            }
         }
         else if (coolTime > 0)
         {
@@ -104,7 +156,7 @@ public class Player : MonoBehaviour
             GameObject go = Instantiate(megaPhoneShot);
             go.transform.position = shotBasePos += ShotSpawnPos;
             moveFreezeTime = moveFreezeTimeLimit;
-            coolTime = coolTimeMax;
+            coolTime = coolTimeMax * coolTimeMultiply;
         }
         if (UpPushed && transform.position.y < groundPos + 0.1f)
         {
@@ -173,6 +225,7 @@ public class Player : MonoBehaviour
     {
         if (col.gameObject.tag == "Enemy")
         {
+            kyamera.transform.DOShakePosition(0.5f, 0.4f, 20);
             damageHPMoveTime = damageHPMoveTimeMAX;
             currentHP -= col.gameObject.GetComponent<Enemy>().damage;
             Destroy(col.gameObject);
@@ -180,6 +233,6 @@ public class Player : MonoBehaviour
     }
     public void OisuCharge()
     {
-        megaPower_Current += megaPower_Get;
+        megaPower_Current += megaPower_Get * megaMultiply;
     }
 }

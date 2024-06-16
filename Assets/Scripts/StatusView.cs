@@ -20,9 +20,9 @@ public class StatusView : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        HPBar.fillAmount = (float)player.currentHP / player.maxHP;
-        HPBar_damage.fillAmount = player.currentHP_Damage_Tween / player.maxHP;
-        coolTimeGauge.fillAmount = (player.coolTimeMax - player.coolTime) / player.coolTimeMax;
+        HPBar.fillAmount = (float)player.currentHP / (player.maxHP * player.maxHPMultiply);
+        HPBar_damage.fillAmount = player.currentHP_Damage_Tween / (player.maxHP * player.maxHPMultiply);
+        coolTimeGauge.fillAmount = ((player.coolTimeMax * player.coolTimeMultiply) - player.coolTime) / (player.coolTimeMax * player.coolTimeMultiply);
         megaGauge.fillAmount = player.megaPower_Current / player.megaPower_Max;
         if (player.megaPower_Current >= player.megaPower_Max)
         {

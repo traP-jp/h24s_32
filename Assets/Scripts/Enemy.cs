@@ -12,6 +12,7 @@ public class Enemy : MonoBehaviour
     Player player;
     public int damage = 1;
     public int Score = 100;
+    bool isKilled = false;
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
@@ -24,8 +25,9 @@ public class Enemy : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.gameObject.tag == "Shot")
+        if (col.gameObject.tag == "Shot" && !isKilled)
         {
+            isKilled = true;
             player.OisuCharge();
             stageController.CountOisu();
             scoreManager.CallCombo(Score);
