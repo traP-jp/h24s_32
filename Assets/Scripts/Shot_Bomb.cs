@@ -22,6 +22,7 @@ public class Shot_Bomb : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        time = 0.0f;
         speed = GetComponent<Shot>().speed;
         _rb = GetComponent<Rigidbody2D>();       
         _collider = GetComponent<Collider2D>();
