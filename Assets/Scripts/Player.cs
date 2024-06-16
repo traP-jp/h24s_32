@@ -10,6 +10,7 @@ using DG.Tweening;
 using System.Transactions;
 public class Player : MonoBehaviour
 {
+    [SerializeField] AudioSource SEController;
     [SerializeField] GameObject kyamera;
     public int maxHP = 10;
     public int currentHP;
@@ -55,6 +56,11 @@ public class Player : MonoBehaviour
     public float moveSpeedMultiply = 1;
     public bool is3wayActive = false;
     [SerializeField] StageController stageController;
+    [SerializeField] AudioClip Damaged;
+    [SerializeField] AudioClip Damaged2;
+    [SerializeField] AudioClip Jump;
+    [SerializeField] AudioClip Oisu;
+    [SerializeField] AudioClip bigOisu;
     // Start is called before the first frame update
     void Start()
     {
@@ -95,6 +101,7 @@ public class Player : MonoBehaviour
         }
         if (coolTime < 0 && SpacePushed)
         {
+            SEController.PlayOneShot(Oisu);
             if (isHomingActive)
             {
                 playerAnimator.SetTrigger("OisuTrigger");
@@ -141,6 +148,7 @@ public class Player : MonoBehaviour
         }
         if (EnterPushed && megaPower_Current >= megaPower_Max)
         {
+            SEController.PlayOneShot(bigOisu);
             kyamera.transform.DOComplete();
             kyamera.transform.DOShakePosition(0.5f, 0.4f, 20);
             megaPower_Current = 0;
@@ -153,6 +161,7 @@ public class Player : MonoBehaviour
         }
         if (UpPushed && transform.position.y < groundPos + 0.1f)
         {
+            //SEController.PlayOneShot(Jump);
             currentJumpSpeed = jumpPower;
         }
         if (currentJumpSpeed > -5000)
@@ -218,6 +227,8 @@ public class Player : MonoBehaviour
     {
         if (col.gameObject.tag == "Enemy" && stageController.isPlayingStage)
         {
+            SEController.PlayOneShot(Damaged);
+            SEController.PlayOneShot(Damaged2);
             kyamera.transform.DOShakePosition(0.5f, 0.4f, 20);
             damageHPMoveTime = damageHPMoveTimeMAX;
             currentHP -= col.gameObject.GetComponent<Enemy>().damage;

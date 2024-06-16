@@ -14,6 +14,8 @@ public class Enemy : MonoBehaviour
     public int damage = 1;
     public int Score = 100;
     bool isKilled = false;
+    AudioSource SEController;
+    [SerializeField] AudioClip KilledSE;
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
@@ -25,6 +27,7 @@ public class Enemy : MonoBehaviour
         IconName = transform.GetChild(0).GetComponent<SpriteRenderer>().sprite.name;
         transform.localScale = new Vector3(0, 0, 0);
         transform.DOScale(new Vector3(0.5f, 0.5f, 1), 0.4f);
+        SEController = GameObject.FindGameObjectWithTag("SEController").GetComponent<AudioSource>();
     }
     void Update()
     {
@@ -37,6 +40,7 @@ public class Enemy : MonoBehaviour
     {
         if (col.gameObject.tag == "Shot" && !isKilled)
         {
+            SEController.PlayOneShot(KilledSE);
             isKilled = true;
             player.OisuCharge();
             stageController.CountOisu();

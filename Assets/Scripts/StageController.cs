@@ -38,6 +38,9 @@ public class StageController : MonoBehaviour
     [SerializeField] PowerUpManager powerUpManager;
     [SerializeField] Text ClearedText;
     [SerializeField] Image WhiteOut;
+    [SerializeField] AudioSource BGMController;
+    [SerializeField] AudioSource BGMController_Loop;
+    [SerializeField] AudioClip BGM2;
     // Start is called before the first frame update
     void Start()
     {
@@ -60,6 +63,12 @@ public class StageController : MonoBehaviour
                 isPlayingStage = false;
                 if (currentOisuCount >= targetEnemies[stageNumber - 1])
                 {
+                    BGMController.DOFade(0, 1).SetEase(Ease.Linear);
+                    DOVirtual.DelayedCall(1, () =>
+                    {
+                        BGMController.Stop();
+                    });
+                    BGMController_Loop.DOFade(1, 1).SetEase(Ease.Linear);
                     sceneCaller.UnloadStageScene(stageNumber);
                     ClearedText.DOText("", 0).SetEase(Ease.Linear);
                     ClearedText.DOFade(0, 0);
@@ -76,6 +85,7 @@ public class StageController : MonoBehaviour
                     });
                     DOVirtual.DelayedCall(2 + moveTime * 2, () =>
                     {
+                        powerUpManager.isPowerUpActive = true;
                         powerUpManager.MovePowerUps(0);
                     });
                 }
@@ -140,6 +150,14 @@ public class StageController : MonoBehaviour
             }
             oisuTargetText.DOText("/" + targetEnemies[stageNumber - 1].ToString("D"), 0.5f, true, ScrambleMode.Numerals);
             stageText.DOText("ステージ" + stageNumber.ToString("D"), 0.5f, true, ScrambleMode.All);
+
+            if (stageNumber > 4)
+            {
+                BGMController.clip = BGM2;
+            }
+            BGMController.Play();
+            BGMController_Loop.DOFade(0, 1).SetEase(Ease.Linear);
+            BGMController.DOFade(1, 1).SetEase(Ease.Linear);
         });
     }
 }
