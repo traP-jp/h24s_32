@@ -14,13 +14,16 @@ public class Shot_Kinano : MonoBehaviour
     private Rigidbody2D _rb;
     private GameObject _player;
     private AudioSource _kinanoShotAudio;
+    [SerializeField]
+    private AudioClip _kinanoShotClip;
     // Start is called before the first frame update
     void Start()
     {
         speed = GetComponent<Shot>().speed;
         _rb = GetComponent<Rigidbody2D>();
         _player = GameObject.FindGameObjectWithTag("Player");
-        _kinanoShotAudio = GetComponent<AudioSource>();
+        _kinanoShotAudio = GameObject.FindGameObjectWithTag("SEController").GetComponent<AudioSource>();
+        _kinanoShotAudio.PlayOneShot(_kinanoShotClip);
     }
 
     // Update is called once per frame
@@ -64,7 +67,6 @@ public class Shot_Kinano : MonoBehaviour
         if (shotPrefab != null && time > shotInterval)
         {
             Instantiate(shotPrefab, transform.position, Quaternion.identity);
-            _kinanoShotAudio.Play();
             time = 0.0f;
         }
     }
