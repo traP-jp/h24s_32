@@ -13,12 +13,15 @@ public class Shot_Homing : MonoBehaviour
     public float homingPowerIncrease = 0.00005f;
     private float speed;
     private Rigidbody2D _rb;
+    private AudioSource _audio;
     private float time;
     // Start is called before the first frame update
     void Start()
     {
         speed = GetComponent<Shot>().speed;
         _rb = GetComponent<Rigidbody2D>();
+        _audio = GetComponent<AudioSource>();
+        _audio.Play();
         time = 0.0f;
     }
 
