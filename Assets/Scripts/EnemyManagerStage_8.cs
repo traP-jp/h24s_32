@@ -33,7 +33,8 @@ public class EnamyManagerStage_8 : MonoBehaviour
     private Enemy_bn_Homing homing;
     private Enemy_bn_path path;
     private Enemy_bn_random random;
-    private float fallG_,fallD_,fixedSpeed_,carA_,carD_,zigSr_,zigSs_,zigS_,homingF_,homingE_,pathF_,pathA_,pathM_,pathEs_,pathEar_,randomF_,randomM_;
+    private float fallG_, fallD_, fixedSpeed_, carA_, carD_, zigSr_, zigSs_, zigS_, homingF_, homingE_, pathF_, pathA_, pathM_, pathEs_, pathEar_, randomF_, randomM_;
+    public float SpawnSpeed = 2;
 
     // Start is called before the first frame update
     void Start()
@@ -61,10 +62,10 @@ public class EnamyManagerStage_8 : MonoBehaviour
     {
         for (int i = 0; i < time.Length; i++)
         {
-            time[i] += Time.deltaTime;
+            time[i] += Time.deltaTime * SpawnSpeed;
         }
         hp = player.currentHP;
-        hpPercentage = hp / maxHp * 100;
+        hpPercentage = (float)hp / (float)maxHp * 100;
         switch (hpPercentage)
         {
             case float threshold_value when threshold_value > 90:
@@ -233,7 +234,7 @@ public class EnamyManagerStage_8 : MonoBehaviour
         carD_ = car.drag;
         zigSr_ = zig.swingRange;
         zigSs_ = zig.swingSpeed;
-        zigS_=  zig.speed;
+        zigS_ = zig.speed;
         homingF_ = homing.freezeTime;
         homingE_ = homing.enemySpeed;
         pathF_ = path.freezTime;

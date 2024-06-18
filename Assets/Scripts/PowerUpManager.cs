@@ -9,6 +9,7 @@ using Unity.VisualScripting.Antlr3.Runtime;
 using System.Runtime.InteropServices;
 public class PowerUpManager : MonoBehaviour
 {
+    int iconCount = 0;
     int chosenPowerUp = 1;
     public bool isPowerUpActive = false;
     public int[] PowerUps = new int[3];
@@ -19,8 +20,7 @@ public class PowerUpManager : MonoBehaviour
     public Sprite[] powerUpIcons = new Sprite[11];
     public string[] powerUpNames = new string[11];
     public string[] powerUpContents = new string[11];
-    public bool[] powerUpNotSecondChoice = new bool[11]
-;
+    public bool[] powerUpNotSecondChoice = new bool[11];
     bool[] PowerUps_Chosen = new bool[11];
     public int[] WeightsOfPowerUp = new int[11];
     [SerializeField] Player player;
@@ -30,6 +30,10 @@ public class PowerUpManager : MonoBehaviour
     [SerializeField] Text PowerUpChooseText;
     [SerializeField] Text PowerUpGuidanceText;
     [SerializeField] GameOverController gameOverController;
+    [SerializeField] GameObject PowerUpIcon;
+    [SerializeField] float iconBasePos = -310;
+    [SerializeField] float iconInterval = 40;
+    [SerializeField] Transform IconParent;
     // Start is called before the first frame update
     void Start()
     {
@@ -106,6 +110,13 @@ public class PowerUpManager : MonoBehaviour
     }
     public void DecidePowerUp()
     {
+        iconCount++;
+        GameObject go2 = Instantiate(PowerUpIcon);
+        go2.GetComponent<Image>().sprite = powerUpIcons[PowerUps[chosenPowerUp]];
+        go2.GetComponent<Image>().SetNativeSize();
+        go2.transform.SetParent(IconParent);
+        go2.transform.localScale = new Vector3(0.06f, 0.06f, 1);
+        go2.transform.localPosition = new Vector3(-10, iconBasePos + (iconInterval * iconCount), 0);
         PowerUpGuidanceText.DOFade(0, 0.5f);
         PowerUpChooseText.DOFade(0, 0.5f);
         switch (PowerUps[chosenPowerUp])
@@ -162,12 +173,13 @@ public class PowerUpManager : MonoBehaviour
         DOVirtual.DelayedCall(1.5f, () =>
         {
             stageController.stageNumber++;
-            if (stageController.stageNumber != 8)
+            if (stageController.stageNumber != 9)
             {
                 stageController.StartStage();
             }
             else
             {
+                stageController.stageNumber = 8;
                 gameOverController.GameEnd(true);
             }
         });

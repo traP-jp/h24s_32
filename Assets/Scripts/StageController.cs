@@ -71,7 +71,14 @@ public class StageController : MonoBehaviour
                         BGMController.Stop();
                     });
                     BGMController_Loop.DOFade(1, 1).SetEase(Ease.Linear);
-                    sceneCaller.UnloadStageScene(stageNumber);
+                    if (stageNumber > 8)
+                    {
+                        sceneCaller.UnloadStageScene(8);
+                    }
+                    else
+                    {
+                        sceneCaller.UnloadStageScene(stageNumber);
+                    }
                     ClearedText.DOText("", 0).SetEase(Ease.Linear);
                     ClearedText.DOFade(0, 0);
                     clearedWindow.DOSizeDelta(new Vector2(1000, 150), moveTime * 2).SetEase(Ease.OutExpo);
@@ -98,7 +105,14 @@ public class StageController : MonoBehaviour
                     {
                         BGMController.Stop();
                     });
-                    sceneCaller.UnloadStageScene(stageNumber);
+                    if (stageNumber > 8)
+                    {
+                        sceneCaller.UnloadStageScene(8);
+                    }
+                    else
+                    {
+                        sceneCaller.UnloadStageScene(stageNumber);
+                    }
                     ClearedText.DOText("", 0).SetEase(Ease.Linear);
                     ClearedText.DOFade(0, 0);
                     clearedWindow.DOSizeDelta(new Vector2(1000, 150), moveTime * 2).SetEase(Ease.OutExpo);
@@ -142,20 +156,41 @@ public class StageController : MonoBehaviour
                 DOVirtual.DelayedCall(Delay * 0.2f, () =>
                 {
                     stageStartWindow.transform.GetChild(Delay).GetComponent<Text>().DOFade(1, 0.5f);
-                    switch (Delay)
+                    if (stageNumber > 8)
                     {
-                        case 0:
-                            stageNumberText_start.DOText("Stage " + stageNumber.ToString("D"), 0.5f, true, ScrambleMode.All).SetEase(Ease.Linear);
-                            break;
-                        case 1:
-                            channelNameText_start.DOText("#" + channelNames_Former[stageNumber - 1] + channelNames_Latter[stageNumber - 1], 1f, true, ScrambleMode.All).SetEase(Ease.Linear);
-                            break;
-                        case 2:
-                            targetOisu_start.DOText("目標おいすー数", 0.5f, true, ScrambleMode.All).SetEase(Ease.Linear);
-                            break;
-                        case 3:
-                            targetOisuText_start.DOText(targetEnemies[stageNumber - 1].ToString("D"), 0.5f, true, ScrambleMode.Numerals).SetEase(Ease.Linear);
-                            break;
+                        switch (Delay)
+                        {
+                            case 0:
+                                stageNumberText_start.DOText("Stage " + stageNumber.ToString("D"), 0.5f, true, ScrambleMode.All).SetEase(Ease.Linear);
+                                break;
+                            case 1:
+                                channelNameText_start.DOText("#" + channelNames_Former[7] + channelNames_Latter[7], 1f, true, ScrambleMode.All).SetEase(Ease.Linear);
+                                break;
+                            case 2:
+                                targetOisu_start.DOText("目標おいすー数", 0.5f, true, ScrambleMode.All).SetEase(Ease.Linear);
+                                break;
+                            case 3:
+                                targetOisuText_start.DOText(targetEnemies[stageNumber - 1].ToString("D"), 0.5f, true, ScrambleMode.Numerals).SetEase(Ease.Linear);
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        switch (Delay)
+                        {
+                            case 0:
+                                stageNumberText_start.DOText("Stage " + stageNumber.ToString("D"), 0.5f, true, ScrambleMode.All).SetEase(Ease.Linear);
+                                break;
+                            case 1:
+                                channelNameText_start.DOText("#" + channelNames_Former[stageNumber - 1] + channelNames_Latter[stageNumber - 1], 1f, true, ScrambleMode.All).SetEase(Ease.Linear);
+                                break;
+                            case 2:
+                                targetOisu_start.DOText("目標おいすー数", 0.5f, true, ScrambleMode.All).SetEase(Ease.Linear);
+                                break;
+                            case 3:
+                                targetOisuText_start.DOText(targetEnemies[stageNumber - 1].ToString("D"), 0.5f, true, ScrambleMode.Numerals).SetEase(Ease.Linear);
+                                break;
+                        }
                     }
                 });
             }
@@ -165,10 +200,25 @@ public class StageController : MonoBehaviour
             });
             DOVirtual.DelayedCall(3.5f, () =>
             {
-                sceneCaller.LoadStageScene(stageNumber);
+                if (stageNumber > 8)
+                {
+                    for (int i = 0; i < Mathf.Pow(2, stageNumber - 8); i++)
+                    {
+
+
+                        sceneCaller.LoadStageScene(8);
+                    }
+
+                    currentChannelNameText.DOText(channelNames_Former[7] + "<size=80><color=#49535B>" + channelNames_Latter[7] + "</color></size>", 1, true, ScrambleMode.All);
+                }
+                else
+                {
+                    sceneCaller.LoadStageScene(stageNumber);
+                    currentChannelNameText.DOText(channelNames_Former[stageNumber - 1] + "<size=80><color=#49535B>" + channelNames_Latter[stageNumber - 1] + "</color></size>", 1, true, ScrambleMode.All);
+                }
                 isPlayingStage = true;
                 leftTime = limitTime;
-                currentChannelNameText.DOText(channelNames_Former[stageNumber - 1] + "<size=80><color=#49535B>" + channelNames_Latter[stageNumber - 1] + "</color></size>", 1, true, ScrambleMode.All);
+
                 if (stageNumber <= 7)
                 {
                     nextChannelNameText.DOText(channelNames_Omited[stageNumber], 0.7f, true, ScrambleMode.All);

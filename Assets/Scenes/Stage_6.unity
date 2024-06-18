@@ -155,6 +155,8 @@ MonoBehaviour:
   IconName: 
   damage: 1
   Score: 100
+  KilledSE: {fileID: 0}
+  OisuEffect: {fileID: 0}
 --- !u!4 &1646265395
 Transform:
   m_ObjectHideFlags: 0
@@ -182,7 +184,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4659bbbcf33b0c1439f494b666c2230d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawn_cycle: 0.6
+  spawn_cycle: 0.5
   enemy_fall: {fileID: 1635100313552946904, guid: ebaf2aa689e33434bb12be90d72e023e, type: 3}
   enemy_fixedspeed: {fileID: 3364684246777081216, guid: 4a443620c2ea6134bb2d576832bf5b08, type: 3}
   enemy_ZigzagFall: {fileID: 96978186452280739, guid: 31832296b83ed724e8410f066d842252, type: 3}

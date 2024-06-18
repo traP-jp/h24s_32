@@ -44,12 +44,12 @@ public class EnamyManagerStage_7 : MonoBehaviour
     {
         for (int i = 0; i < time.Length; i++)
         {
-            time[i] += Time.deltaTime;
+            time[i] += Time.deltaTime * 2.5f;
         }
         hp = player.currentHP;
         hp = 2;
         maxHp = 3;
-        hpPercentage = hp / maxHp * 100;
+        hpPercentage = (float)hp / (float)maxHp * 100;
         switch (hpPercentage)
         {
             case float threshold_value when threshold_value > 90:

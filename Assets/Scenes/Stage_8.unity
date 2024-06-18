@@ -173,10 +173,11 @@ MonoBehaviour:
   counterMax: 90010000c8000000c8000000c8000000c8000000c8000000c8000000
   levelup:
   - 1
-  - 0.8
-  - 0.6
-  - 0.4
-  - 0.2
+  - 1
+  - 1
+  - 1
+  - 1
+  SpawnSpeed: 4
 --- !u!4 &1433381793
 Transform:
   m_ObjectHideFlags: 0

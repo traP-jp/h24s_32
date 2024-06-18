@@ -32,7 +32,7 @@ public class Enemy : MonoBehaviour
     }
     void Update()
     {
-        if (transform.position.y < -10)
+        if (transform.position.y < -6)
         {
             Destroy(gameObject);
         }
@@ -41,26 +41,34 @@ public class Enemy : MonoBehaviour
     {
         if (col.gameObject.tag == "Shot" && !isKilled)
         {
-            GameObject go = Instantiate(OisuEffect);
-            go.transform.position = transform.position;
-            SEController.PlayOneShot(KilledSE);
-            isKilled = true;
-            player.OisuCharge();
-            stageController.CountOisu();
-            scoreManager.CallCombo(Score);
-            if (oisuManager != null)
+            if (!col.GetComponent<Shot>().isDied)
             {
-                oisuManager.GetComponent<OisuManager>().CallOisu(IconName);
+                col.GetComponent<Shot>().isDied = true;
+                GameObject go = Instantiate(OisuEffect);
+                go.transform.position = transform.position;
+                SEController.PlayOneShot(KilledSE);
+                isKilled = true;
+                player.OisuCharge();
+                stageController.CountOisu();
+                scoreManager.CallCombo(Score);
+                if (oisuManager != null)
+                {
+                    oisuManager.GetComponent<OisuManager>().CallOisu(IconName);
+                }
+                if (col.GetComponent<Shot>().isPenetrate && col.GetComponent<Shot>().penetrateCount == 0)
+                {
+                    col.GetComponent<Shot>().penetrateCount++;
+                }
+                else
+                {
+                    Destroy(col.gameObject);
+                }
+                Destroy(gameObject);
             }
-            if (col.GetComponent<Shot>().isPenetrate && col.GetComponent<Shot>().penetrateCount == 0)
-            {
-                col.GetComponent<Shot>().penetrateCount++;
-            }
-            else
-            {
-                Destroy(col.gameObject);
-            }
-            Destroy(gameObject);
         }
+    }
+    void OnDestroy()
+    {
+        transform.DOKill();
     }
 }
