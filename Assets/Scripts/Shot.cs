@@ -10,8 +10,8 @@ public class Shot : MonoBehaviour
     public float speed = 5.0f;
 
     Player player;
-
-    // 貫通するかど�?�?
+    public bool isDied = false;
+    // 貫通するかど�?�?
     public bool isPenetrate = false;
     // 貫通した回数
     public int penetrateCount = 0;
@@ -29,6 +29,10 @@ public class Shot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (transform.position.y > 6)
+        {
+            Destroy(gameObject);
+        }
     }
 
     // 画面外に出たら削除する

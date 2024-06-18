@@ -17,6 +17,7 @@ public class Shot_Homing : MonoBehaviour
     [SerializeField]
     private AudioClip _oisu__;
     private float time;
+    GameObject enemy;
     // Start is called before the first frame update
     void Start()
     {
@@ -33,7 +34,10 @@ public class Shot_Homing : MonoBehaviour
         // 通常時は直進
         _rb.velocity = transform.up * speed;
         // Searchで見つけた敵に向かって移動する
-        GameObject enemy = SearchEnemy();
+        if (enemy == null)
+        {
+            enemy = SearchEnemy();
+        }
         if (isHoming && enemy != null)
         {
             Vector2 target = enemy.GetComponent<Transform>().position;

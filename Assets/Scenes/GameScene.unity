@@ -5918,7 +5918,7 @@ MonoBehaviour:
   - "\u30AD\u30E3\u30E9\u306E\u79FB\u52D5\u901F\u5EA6+50%"
   - "\u5F3E\u304C3way\u306B\u306A\u308B"
   powerUpNotSecondChoice: 0000000000010000010001
-  WeightsOfPowerUp: 9600000032000000320000006400000032000000320000003200000032000000320000003200000032000000
+  WeightsOfPowerUp: 9600000032000000320000003200000032000000320000003200000032000000320000003200000032000000
   player: {fileID: 704022513}
   scoreManager: {fileID: 1658906556}
   Kinano: {fileID: 3309526158978971353, guid: f0bb7ce3cf4a346a7bb358959749da06, type: 3}
@@ -5926,6 +5926,10 @@ MonoBehaviour:
   PowerUpChooseText: {fileID: 565374492}
   PowerUpGuidanceText: {fileID: 1664165745}
   gameOverController: {fileID: 1615406194}
+  PowerUpIcon: {fileID: 4299742026595761, guid: e666fbf7949104ad2891a192771e3489, type: 3}
+  iconBasePos: -310
+  iconInterval: 40
+  IconParent: {fileID: 1381462622}
 --- !u!1 &1448107851
 GameObject:
   m_ObjectHideFlags: 0
@@ -6484,6 +6488,7 @@ MonoBehaviour:
   Result_GameOver: {fileID: 21300000, guid: fb4a6455902764c008f98cc8b0ec39c9, type: 3}
   Result_Cleared: {fileID: 21300000, guid: 1eb4c30004da4437384a86909b7d1679, type: 3}
   WhiteOut: {fileID: 1050377845}
+  SpaceToRetryText: {fileID: 1452722278}
 --- !u!4 &1615406195
 Transform:
   m_ObjectHideFlags: 0
@@ -7449,7 +7454,7 @@ MonoBehaviour:
   totalOisuCount: 0
   limitTime: 30
   leftTime: 0
-  targetEnemies: 050000000a000000140000001e000000280000003c0000005000000064000000
+  targetEnemies: 050000000a000000140000001e000000280000003c00000064000000a0000000400100008002000000050000000a000000140000002800000050000000a00000
   channelNames_Omited:
   - e/h/2/32
   - e/h/24spring
@@ -7711,6 +7716,67 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1001 &2020689290
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 516383865773776201, guid: 00ae2bf8c8a624ed38161cab9eeda7f7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 516383865773776201, guid: 00ae2bf8c8a624ed38161cab9eeda7f7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 516383865773776201, guid: 00ae2bf8c8a624ed38161cab9eeda7f7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 516383865773776201, guid: 00ae2bf8c8a624ed38161cab9eeda7f7, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 516383865773776201, guid: 00ae2bf8c8a624ed38161cab9eeda7f7, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 516383865773776201, guid: 00ae2bf8c8a624ed38161cab9eeda7f7, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 516383865773776201, guid: 00ae2bf8c8a624ed38161cab9eeda7f7, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 516383865773776201, guid: 00ae2bf8c8a624ed38161cab9eeda7f7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 516383865773776201, guid: 00ae2bf8c8a624ed38161cab9eeda7f7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 516383865773776201, guid: 00ae2bf8c8a624ed38161cab9eeda7f7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4336439062694548224, guid: 00ae2bf8c8a624ed38161cab9eeda7f7, type: 3}
+      propertyPath: HmacKey
+      value: mtnvQ+nxtM1NPRNt8krM0U50NSROjNx3hmBo9vkeuIwTyRlGK6DtvFG9S0qOsZJqmk9vrB7qKTX0cc5g4RHazA==
+      objectReference: {fileID: 0}
+    - target: {fileID: 5323818951622561360, guid: 00ae2bf8c8a624ed38161cab9eeda7f7, type: 3}
+      propertyPath: m_Name
+      value: UnityroomApiClient
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 00ae2bf8c8a624ed38161cab9eeda7f7, type: 3}
 --- !u!1 &2086022228
 GameObject:
   m_ObjectHideFlags: 0
@@ -8373,3 +8439,4 @@ SceneRoots:
   - {fileID: 858697796}
   - {fileID: 721743042}
   - {fileID: 1615406195}
+  - {fileID: 2020689290}

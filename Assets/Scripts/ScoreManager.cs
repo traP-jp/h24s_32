@@ -48,7 +48,7 @@ public class ScoreManager : MonoBehaviour
         comboMultiplyText.text = "×" + ((float)(10 + (comboCount / 10)) / 10).ToString("F1");
         comboText.text = comboCount.ToString("D");
         DOTween.To(() => totalScore_Tween, (n) => totalScore_Tween = n, totalScore, 0.5f);
-        addedScoreText.text = "+" + (value * (10 + (comboCount / 10)) / 10).ToString("D");
+        addedScoreText.text = "+" + ((int)(scoreMultiply * value * (10 + (comboCount / 10)) / 10)).ToString("D");
         comboTime = comboTimeMax;
         addedScoreText.DOKill();
         addedScoreText.DOFade(0, 0);
